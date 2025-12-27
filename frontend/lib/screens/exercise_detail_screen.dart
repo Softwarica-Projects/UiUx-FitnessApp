@@ -276,7 +276,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                       getHeading(mExerciseModel!.data!.levelTitle.validate()).visible(!mExerciseModel!.data!.levelTitle.isEmptyOrNull),
                       mExerciseModel?.data?.sets?.isNotEmpty ?? false
                           ? Container(
-                              decoration: boxDecorationWithRoundedCorners(borderRadius: radius(4), backgroundColor: GreyLightColor),
+                              decoration: boxDecorationWithRoundedCorners(borderRadius: radius(4), backgroundColor: greyLightColor),
                               padding: EdgeInsets.all(8),
                               margin: EdgeInsets.all(8),
                               child: Row(mainAxisSize: MainAxisSize.min, children: [mWeightOption(languages.lblLbs, 0), 4.width, mWeightOption(languages.lblKg, 1)]),
@@ -288,7 +288,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   if (mExerciseModel!.data!.type == SETS)
                     Container(
                       width: context.width(),
-                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(), backgroundColor: GreyLightColor.withOpacity(0.3)),
+                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(), backgroundColor: greyLightColor.withOpacity(0.3)),
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                       margin: EdgeInsets.symmetric(horizontal: 16),
                       child: mSets1(),
@@ -297,7 +297,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   if (mExerciseModel!.data!.type == SETS)
                     Container(
                       width: context.width(),
-                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(), backgroundColor: GreyLightColor.withOpacity(0.3)),
+                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(), backgroundColor: greyLightColor.withOpacity(0.3)),
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                       margin: EdgeInsets.symmetric(horizontal: 16),
                       child: mSets2(),
@@ -305,7 +305,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   if (mExerciseModel!.data!.type == DURATION)
                     Container(
                       width: context.width(),
-                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(), backgroundColor: GreyLightColor.withOpacity(0.3)),
+                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(), backgroundColor: greyLightColor.withOpacity(0.3)),
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -393,7 +393,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
     return Container(
       decoration: boxDecorationWithRoundedCorners(
         borderRadius: radius(4),
-        backgroundColor: mWeight == index ? primaryColor : GreyLightColor,
+        backgroundColor: mWeight == index ? primaryColor : greyLightColor,
       ),
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       child: Text(value ?? '', style: secondaryTextStyle(size: 12, color: mWeight == index ? Colors.white : textSecondaryColorGlobal)),

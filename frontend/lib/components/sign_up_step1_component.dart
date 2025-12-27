@@ -133,7 +133,7 @@ class _SignUpStep1ComponentState extends State<SignUpStep1Component> {
                           initialSelection: getStringAsync(COUNTRY_CODE, defaultValue: countryCode!),
                           showCountryOnly: false,
                           showFlag: false,
-                          boxDecoration: BoxDecoration(borderRadius: radius(defaultRadius), color: GreyLightColor),
+                          boxDecoration: BoxDecoration(borderRadius: radius(defaultRadius), color: greyLightColor),
                           showFlagDialog: true,
                           showOnlyCountryWhenClosed: false,
                           alignLeft: false,

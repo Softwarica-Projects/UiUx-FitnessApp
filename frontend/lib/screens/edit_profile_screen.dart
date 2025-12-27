@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:habit_tracker/components/weight_widget.dart';
+import 'package:habit_tracker/extensions/LiveStream.dart';
+import 'package:habit_tracker/extensions/shared_pref.dart';
+import 'package:habit_tracker/extensions/system_utils.dart';
+import 'package:habit_tracker/models/user_response.dart';
+import 'package:habit_tracker/network/network_utils.dart';
 import 'package:habit_tracker/network/rest_api.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:tuple/tuple.dart';
@@ -101,16 +108,90 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
   getGender() {
     GenderList.add(GenderModel(0, languages.lblMale, MALE));
     GenderList.add(GenderModel(1, languages.lblFemale, FEMALE));
-    GenderList.forEach((element) {
+    for (var element in GenderList) {
       if (element.key == userStore.gender) {
         selectGender = element.id.validate();
       }
-    });
+    }
   }
 
   Future save() async {
     hideKeyboard(context);
-    //todo
+    appStore.setLoading(true);
+
+    MultipartRequest multiPartRequest = await getMultiPartRequest('update-profile');
+    multiPartRequest.fields['id'] = userStore.userId.toString();
+    multiPartRequest.fields['first_name'] = mFNameCont.text;
+    multiPartRequest.fields['last_name'] = mLNameCont.text;
+    multiPartRequest.fields['email'] = mEmailCont.text;
+    multiPartRequest.fields['username'] = mEmailCont.text;
+    multiPartRequest.fields['phone_number'] = mMobileNumberCont.text;
+    multiPartRequest.fields['gender'] = mGender.toLowerCase();
+    multiPartRequest.fields['user_profile[age]'] = mAgeCont.text;
+    multiPartRequest.fields['user_profile[weight]'] = mWeightCont.text.validate().split(' ')[0];
+    multiPartRequest.fields['user_profile[height]'] = mHeightCont.text.validate().split(' ')[0];
+    multiPartRequest.fields['user_profile[height_unit]'] = userStore.heightUnit;
+    multiPartRequest.fields['user_profile[weight_unit]'] = userStore.weightUnit;
+
+    if (image != null) {
+      multiPartRequest.files.add(await MultipartFile.fromPath('profile_image', image!.path.toString()));
+    }
+
+    multiPartRequest.headers.addAll(buildHeaderTokens());
+    sendMultiPartRequest(
+      multiPartRequest,
+      onSuccess: (data) async {
+        if ((data as String).isJson()) {
+          UserResponse res = UserResponse.fromJson(jsonDecode(data));
+          setValue(COUNTRY_CODE, countryCode);
+          await userStore.setUserEmail(res.data!.email.validate());
+          await userStore.setFirstName(res.data!.firstName.validate());
+          await userStore.setLastName(res.data!.lastName.validate());
+          await userStore.setUsername(res.data!.username.validate());
+          await userStore.setGender(res.data!.gender.validate());
+          await userStore.setUserImage(res.data!.profileImage.validate());
+          await userStore.setDisplayName(res.data!.displayName.validate());
+          await userStore.setPhoneNo(res.data!.phoneNumber.validate());
+
+          if (res.data?.userProfile != null) {
+            await userStore.setAge(res.data?.userProfile?.age ?? '');
+            await userStore.setHeight(res.data?.userProfile?.height ?? '');
+            await userStore.setWeight(res.data?.userProfile?.weight ?? '');
+          } else {
+            await userStore.setAge(mAgeCont.text.validate());
+            await userStore.setHeight(mHeightCont.text.validate());
+            await userStore.setWeight(weight.toString());
+          }
+
+          double weightInPounds = userStore.weight.toDouble();
+          double weightInKilograms = poundsToKilograms(weightInPounds);
+
+          if (userStore.weightUnit == 'LBS' || userStore.weightUnit == 'lbs') {
+            if (userStore.weightStoreGraph.replaceAll('user', '').trim() != weightInKilograms.toStringAsFixed(2)) {
+              await graphsave();
+            }
+          } else {
+            if (userStore.weightStoreGraph.replaceAll('user', '').trim() != userStore.weight) {
+              await graphsave();
+            }
+          }
+
+          await getUserDetail(context, userStore.userId).whenComplete(() {
+            LiveStream().emit(PROGRESS);
+            finish(context, true);
+            appStore.setLoading(false);
+            if (mounted) setState(() {});
+          });
+        }
+      },
+      onError: (error) {
+        toast(error.toString());
+        appStore.setLoading(false);
+      },
+    ).catchError((e) {
+      appStore.setLoading(false);
+      toast(e.toString());
+    });
   }
 
   Future<void> graphsave({String? id}) async {
@@ -137,16 +218,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
     if (mounted) super.setState(fn);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Widget mHeightOption(String? value, int? index) {
     return Container(
       decoration: boxDecorationWithRoundedCorners(
         borderRadius: radius(6),
-        backgroundColor: mHeight == index ? primaryColor : GreyLightColor,
+        backgroundColor: mHeight == index ? primaryColor : greyLightColor,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: Text(value.toString(), style: secondaryTextStyle(color: mHeight == index ? Colors.white : textColor)),
@@ -183,7 +259,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
     mHeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mHeightCont.text.length));
   }
 
-  //Convert CM to Feet
   void convertCMToFeet() {
     double a = double.parse(mHeightCont.text.isEmptyOrNull ? "0.0" : mHeightCont.text.validate()) * 0.0328;
     if (!mHeightCont.text.isEmptyOrNull) {
@@ -220,7 +295,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
     });
   }
 
-  //Convert lbs to kg
   void convertLbsToKg() {
     double a = double.parse(mWeightCont.text.isEmptyOrNull ? "0.0" : mWeightCont.text.validate()) * 0.45359237;
     if (!mWeightCont.text.isEmptyOrNull) {
@@ -323,7 +397,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
                             child: Image.asset(ic_camera, color: primaryColor, height: 20, width: 20),
                           ).onTap(() {
                             getImage();
-                          }) /*.visible(!getBoolAsync(IS_SOCIAL))*/,
+                          })
                         ],
                       ).paddingOnly(top: context.height() * 0.11).center(),
                       Column(

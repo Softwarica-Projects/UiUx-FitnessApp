@@ -106,7 +106,7 @@ class MyAppState extends State<MyApp> {
 
   void init() async {
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen((e) {
-      if (e == ConnectivityResult.none) {
+      if (e.contains(ConnectivityResult.none)) {
         log('not connected');
         isCurrentlyOnNoInternet = true;
         push(NoInternetScreen());
@@ -140,7 +140,6 @@ class MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       scrollBehavior: SBehavior(),
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
       home: SplashScreen(),
     );

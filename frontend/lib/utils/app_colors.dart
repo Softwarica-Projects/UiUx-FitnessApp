@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 const primaryColor = Color.fromARGB(255, 13, 147, 209);
 const primaryLightColor = Color.fromARGB(255, 25, 144, 224);
 
@@ -8,9 +9,9 @@ const scaffoldColorDark = Color(0xFF1D1D1D);
 
 const socialBackground = Color(0xFF2F2F2F);
 
-const BackgroundColorImageColor = Color(0xffFAFAFA);
+const backgroundColorImageColor = Color(0xffFAFAFA);
 
-const GreyLightColor = Color(0xffEDEDED);
+const greyLightColor = Color(0xffEDEDED);
 
 const cardBackground = Color(0xFFFAFAFA);
 
@@ -22,11 +23,11 @@ const replyMsgBgColor = Color(0xFF243037);
 
 const textColor = Color(0xff8A8A8A);
 
-const GreenColor = Color(0xff199226);
+const greenColor = Color(0xff199226);
 
-const RedColor = Color(0xffF4462C);
+const redColor = Color(0xffF4462C);
 
-const YellowColor = Color(0xffF9AA00);
+const yellowColor = Color(0xffF9AA00);
 const stepBackground = Color(0xffEEF4FF);
 const favDietBackground = Color(0xffC2D5D9);
 const favBackground = Color(0xffA4A29B);

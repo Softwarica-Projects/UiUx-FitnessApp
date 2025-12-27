@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 6,
                     width: context.width() / 4.5,
                     decoration: boxDecorationWithRoundedCorners(
-                      backgroundColor: appStore.signUpIndex >= index ? primaryColor : GreyLightColor,
+                      backgroundColor: appStore.signUpIndex >= index ? primaryColor : greyLightColor,
                     ),
                   );
                 }).toList(),

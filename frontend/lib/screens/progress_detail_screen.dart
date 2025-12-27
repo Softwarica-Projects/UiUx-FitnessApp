@@ -139,7 +139,7 @@ class ProgressDetailScreenState extends State<ProgressDetailScreen> {
           actions: [
             widget.mTitle == 'Weight'
                 ? Container(
-                    decoration: boxDecorationWithRoundedCorners(backgroundColor: GreyLightColor),
+                    decoration: boxDecorationWithRoundedCorners(backgroundColor: greyLightColor),
                     padding: EdgeInsets.all(8),
                     margin: EdgeInsets.all(8),
                     child: Row(mainAxisSize: MainAxisSize.min, children: [mWeightOption(languages.lblLbs, 0), 4.width, mWeightOption(languages.lblKg, 1)]),
@@ -243,7 +243,7 @@ class ProgressDetailScreenState extends State<ProgressDetailScreen> {
     return Container(
       decoration: boxDecorationWithRoundedCorners(
         borderRadius: radius(6),
-        backgroundColor: mWeight == index ? primaryColor : GreyLightColor,
+        backgroundColor: mWeight == index ? primaryColor : greyLightColor,
       ),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: Text(value!, style: secondaryTextStyle(color: mWeight == index ? Colors.white : textSecondaryColorGlobal)),

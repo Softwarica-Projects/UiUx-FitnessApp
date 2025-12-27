@@ -365,15 +365,8 @@ Future<bool?> showConfirmDialogCustom(
                 imageShow ??
                     Container(
                       padding: EdgeInsets.all(18),
-                      decoration: boxDecorationWithRoundedCorners(
-                          borderRadius: radius(150),
-                          border: Border.all(color: primaryColor!),
-                          backgroundColor: BackgroundColorImageColor ?? primaryLightColor),
-                      child: Image.asset(
-                          image.isEmptyOrNull ? ic_logo : image!,
-                          color: iconColor ?? primaryColor,
-                          height: 28,
-                          width: 28),
+                      decoration: boxDecorationWithRoundedCorners(borderRadius: radius(150), border: Border.all(color: primaryColor!), backgroundColor: backgroundColorImageColor ?? primaryLightColor),
+                      child: Image.asset(image.isEmptyOrNull ? ic_logo : image!, color: iconColor ?? primaryColor, height: 28, width: 28),
                     ).center(),
                 14.height,
                 Text(

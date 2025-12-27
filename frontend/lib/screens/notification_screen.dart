@@ -91,7 +91,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 children: [
                                   Text(mNotification.createdAt.validate(), style: secondaryTextStyle(size: 12)),
                                   4.width,
-                                  mNotification.readAt.isEmptyOrNull ? Icon(Icons.circle, size: 8, color: GreenColor) : SizedBox(),
+                                  mNotification.readAt.isEmptyOrNull ? Icon(Icons.circle, size: 8, color: greenColor) : SizedBox(),
                                 ],
                               ),
                             ),
