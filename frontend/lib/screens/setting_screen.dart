@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:habit_tracker/extensions/LiveStream.dart';
 import 'package:habit_tracker/screens/dashboard_screen.dart';
+import 'package:habit_tracker/screens/home_screen.dart';
 
 import '../../extensions/extension_util/widget_extensions.dart';
 import '../../extensions/widgets.dart';
