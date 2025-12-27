@@ -82,7 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
             userStore.setIsSTEP('newUser');
           }
 
-          getUSerDetail(context, value.data!.id).then((value) {
+          getUserDetail(context, value.data!.id).then((value) {
             DashboardScreen().launch(context, isNewTask: true);
           }).catchError((e) {
             toast(e.toString());
@@ -120,9 +120,7 @@ class _SignInScreenState extends State<SignInScreen> {
           return locale.split('_').last;
         }
       }
-    } catch (e) {
-      print('Error getting country code: $e');
-    }
+    } catch (e) {}
     return null;
   }
 

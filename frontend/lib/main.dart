@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'components/local_notification_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/languageConfiguration/AppLocalizations.dart';
@@ -47,28 +47,7 @@ Future<void> main() async {
   initJsonFile();
   setLogInValue();
   defaultAppButtonShapeBorder = RoundedRectangleBorder(borderRadius: radius(defaultAppButtonRadius));
-  await AwesomeNotifications().initialize(null, [
-    NotificationChannel(
-      channelKey: 'basic_channel',
-      channelName: 'Basic Notifications',
-      channelDescription: 'Basic Notification Channel',
-      defaultColor: primaryColor,
-      playSound: true,
-      importance: NotificationImportance.High,
-      locked: true,
-      enableVibration: true,
-    ),
-    NotificationChannel(
-      channelKey: 'scheduled_channel',
-      channelName: 'Scheduled Notifications',
-      channelDescription: 'Scheduled Notification Channel',
-      defaultColor: primaryColor,
-      locked: true,
-      importance: NotificationImportance.High,
-      playSound: true,
-      enableVibration: true,
-    ),
-  ]);
+  await LocalNotificationService().init();
   if (!getStringAsync(PROGRESS_SETTINGS_DETAIL).isEmptyOrNull) {
     userStore.addAllProgressSettingsListItem(jsonDecode(getStringAsync(PROGRESS_SETTINGS_DETAIL)).map<ProgressSettingModel>((e) => ProgressSettingModel.fromJson(e)).toList());
   } else {
@@ -106,7 +85,7 @@ class MyAppState extends State<MyApp> {
 
   void init() async {
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen((e) {
-      if (e == ConnectivityResult.none) {
+      if (e.contains(ConnectivityResult.none)) {
         log('not connected');
         isCurrentlyOnNoInternet = true;
         push(NoInternetScreen());
@@ -140,7 +119,6 @@ class MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       scrollBehavior: SBehavior(),
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
       home: SplashScreen(),
     );

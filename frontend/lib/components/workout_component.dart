@@ -28,7 +28,6 @@ class WorkoutComponent extends StatefulWidget {
 
 class _WorkoutComponentState extends State<WorkoutComponent> {
   Future<void> setWorkout(int? id) async {
-    print("--------------33>>>${id}");
     appStore.setLoading(true);
     Map req = {"workout_id": id};
     await setWorkoutFavApi(req).then((value) {

@@ -62,7 +62,6 @@ performLanguageOperation(List<LanguageJsonData>? _defaultServerLanguageData) {
 }
 
 List<Locale> getSupportedLocales() {
-  print("get supported called");
   List<Locale> list = [];
   if (defaultServerLanguageData != null && defaultServerLanguageData!.length > 0) {
     for (int index = 0; index < defaultServerLanguageData!.length; index++) {

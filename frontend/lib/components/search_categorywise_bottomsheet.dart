@@ -77,21 +77,20 @@ class _SearchCategoryBottomSheetState extends State<SearchCategoryBottomSheet> {
                         Text(languages.lblEquipments, style: boldTextStyle()).expand(),
                         isSelectedAll
                             ? Text(languages.lblClearAll, style: primaryTextStyle(color: primaryColor)).onTap(() {
-
-                                  for (int i = 0; i < widget.mEquipmentList!.length; i++) {
-                                    widget.mEquipmentList![i].isSelected = false;
-                                  }
-                                  isSelectedAll = false;
-                                  mEquipmentIdList.clear();
-                                  setState(() {});
+                                for (int i = 0; i < widget.mEquipmentList!.length; i++) {
+                                  widget.mEquipmentList![i].isSelected = false;
+                                }
+                                isSelectedAll = false;
+                                mEquipmentIdList.clear();
+                                setState(() {});
                               })
                             : Text(languages.lblSelectAll, style: primaryTextStyle(color: primaryColor)).onTap(() {
-                                  for (int i = 0; i < widget.mEquipmentList!.length; i++) {
-                                    widget.mEquipmentList![i].isSelected = true;
-                                    mEquipmentIdList.add(widget.mEquipmentList![i].id.validate());
-                                    isSelectedAll = true;
-                                  }
-                                  setState(() {});
+                                for (int i = 0; i < widget.mEquipmentList!.length; i++) {
+                                  widget.mEquipmentList![i].isSelected = true;
+                                  mEquipmentIdList.add(widget.mEquipmentList![i].id.validate());
+                                  isSelectedAll = true;
+                                }
+                                setState(() {});
                               })
                       ],
                     ).paddingSymmetric(horizontal: 16, vertical: 16),
@@ -144,7 +143,6 @@ class _SearchCategoryBottomSheetState extends State<SearchCategoryBottomSheet> {
                           ],
                         ).onTap(() {
                           setState(() {
-
                             widget.mEquipmentList![index].isSelected = !widget.mEquipmentList![index].isSelected!;
                             var selectedItems = widget.mEquipmentList?.where((item) => item.isSelected == true).toList();
                             if (widget.mEquipmentList?.length == selectedItems?.length) {
@@ -162,7 +160,7 @@ class _SearchCategoryBottomSheetState extends State<SearchCategoryBottomSheet> {
                       color: primaryColor,
                       onTap: () {
                         widget.onCall!.call(mEquipmentIdList);
-                        print(mEquipmentIdList);
+
                         finish(context);
                       },
                     ).paddingSymmetric(horizontal: 16, vertical: 16),

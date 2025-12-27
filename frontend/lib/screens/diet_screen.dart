@@ -62,12 +62,8 @@ class _DietScreenState extends State<DietScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      print("App is in resumed state!");
-    }
-    if (state == AppLifecycleState.paused) {
-      print("App is in push state!");
-    }
+    if (state == AppLifecycleState.resumed) {}
+    if (state == AppLifecycleState.paused) {}
   }
 
   init() async {

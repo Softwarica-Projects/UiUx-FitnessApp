@@ -4,8 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:habit_tracker/extensions/colors.dart';
+import 'package:habit_tracker/extensions/extension_util/int_extensions.dart';
 import 'package:habit_tracker/extensions/system_utils.dart';
 import 'package:habit_tracker/models/login_response.dart';
+import 'package:habit_tracker/network/rest_api.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -183,11 +185,27 @@ Widget mOption(String img, String title, Function? onCall) {
 }
 
 Future<void> getSettingData() async {
-  //todo
+  await getAppSettingApi();
 }
 
-Future<void> getUSerDetail(BuildContext context, int? id) async {
-  //todo
+Future<void> getUserDetail(BuildContext context, int? id) async {
+  await getUserDataApi(id: id.validate()).then((value) async {
+    userStore.setFirstName(value.data!.firstName.validate());
+    userStore.setUserEmail(value.data!.email.validate());
+    userStore.setLastName(value.data!.lastName.validate());
+    userStore.setGender(value.data!.gender.validate());
+    userStore.setUserID(value.data!.id.validate());
+    userStore.setPhoneNo(value.data!.phoneNumber.validate());
+    userStore.setUsername(value.data!.username.validate());
+    userStore.setDisplayName(value.data!.displayName.validate());
+    userStore.setUserImage(value.data!.profileImage.validate());
+    userStore.setAge(value.data!.userProfile!.age.validate());
+    userStore.setHeight(value.data!.userProfile!.height.validate());
+    userStore.setWeight(value.data!.userProfile!.weight.validate());
+    appStore.setLoading(false);
+  }).catchError((e) {
+    appStore.setLoading(false);
+  });
 }
 
 Widget mSuffixTextFieldIconWidget(String? img) {

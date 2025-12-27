@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:habit_tracker/components/equipment_component.dart';
-import 'package:habit_tracker/extensions/horizontal_list.dart';
-import 'package:habit_tracker/network/rest_api.dart';
-import 'package:habit_tracker/screens/view_equipment_screen.dart';
-
+import 'package:habit_tracker/screens/edit_profile_screen.dart';
+import 'package:habit_tracker/screens/notification_screen.dart';
+import 'package:intl/intl.dart';
+import 'package:habit_tracker/utils/app_constants.dart';
 import '../../components/level_component.dart';
 import '../../extensions/decorations.dart';
 import '../../extensions/extension_util/context_extensions.dart';
@@ -16,15 +15,24 @@ import '../../extensions/extension_util/string_extensions.dart';
 import '../../extensions/extension_util/widget_extensions.dart';
 import '../../extensions/widgets.dart';
 import '../../main.dart';
+import '../../screens/view_body_part_screen.dart';
+import '../../screens/view_equipment_screen.dart';
 import '../../screens/view_level_screen.dart';
 import '../../utils/app_colors.dart';
+import '../components/body_part_component.dart';
+import '../components/equipment_component.dart';
+import '../components/workout_component.dart';
 import '../extensions/app_text_field.dart';
 import '../extensions/common.dart';
+import '../extensions/horizontal_list.dart';
 import '../extensions/loader_widget.dart';
 import '../extensions/text_styles.dart';
 import '../models/dashboard_response.dart';
+import '../network/rest_api.dart';
+import '../screens/search_screen.dart';
 import '../utils/app_common.dart';
 import '../utils/app_images.dart';
+import 'filter_workout_screen.dart';
 
 bool? isFirstTimeGraph = false;
 
@@ -49,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getUserDetailsApiCall() async {
-    await getUSerDetail(context, userStore.userId).whenComplete(() {});
+    await getUserDetail(context, userStore.userId);
   }
 
   @override
@@ -70,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         IconButton(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          icon: const Icon(Feather.chevron_right, color: primaryColor),
+          icon: Icon(Feather.chevron_right, color: primaryColor),
           onPressed: () {
             onCall!.call();
           },
@@ -83,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
+        preferredSize: Size.fromHeight(70),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: cachedImage(userStore.profileImage.validate(), width: 42, height: 42, fit: BoxFit.cover).cornerRadiusWithClipRRect(100).paddingAll(1),
                     ).onTap(() {
-                      //todo
+                      EditProfileScreen().launch(context);
                     });
                   },
                 ),
@@ -110,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${userStore.fName.validate().capitalizeFirstLetter()} ${userStore.lName.capitalizeFirstLetter()}",
+                      userStore.fName.validate().capitalizeFirstLetter() + " " + userStore.lName.capitalizeFirstLetter(),
                       style: boldTextStyle(size: 18),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -126,10 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 border: Border.all(color: context.dividerColor.withOpacity(0.9), width: 0.6),
                 backgroundColor: Colors.white,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Image.asset(ic_notification, width: 24, height: 24, color: Colors.grey),
             ).onTap(() {
-              //todo
+              NotificationScreen().launch(context);
             }),
           ],
         ).paddingOnly(top: context.statusBarHeight + 16, left: 16, right: 16, bottom: 6),
@@ -137,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: RefreshIndicator(
         backgroundColor: context.scaffoldBackgroundColor,
         onRefresh: () {
-          return Future.delayed(const Duration(seconds: 1), () {
+          return Future.delayed(Duration(seconds: 1), () {
             setState(() {});
           });
         },
@@ -146,9 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               DashboardResponse? mDashboardResponse = snapshot.data;
-              if (mDashboardResponse == null) return const SizedBox();
               return SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -162,11 +169,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: defaultInputDecoration(context, label: languages.lblSearch, isFocusTExtField: true),
                       onTap: () {
                         hideKeyboard(context);
-                              SearchScreen().launch(context);
+                        SearchScreen().launch(context);
                       },
                     ).paddingSymmetric(horizontal: 16),
                     16.height,
-                 Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         mHeading(
@@ -198,9 +205,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         HorizontalList(
-                          physics:const BouncingScrollPhysics(),
+                          physics: BouncingScrollPhysics(),
                           itemCount: mDashboardResponse.equipment!.length,
-                          padding: const. EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           spacing: 16,
                           itemBuilder: (context, index) {
                             return EquipmentComponent(mEquipmentModel: mDashboardResponse.equipment![index]);
@@ -208,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ).visible(mDashboardResponse.equipment!.isNotEmpty),
-          Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         10.height,
@@ -250,8 +257,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ListView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           itemCount: mDashboardResponse.level!.length,
                           itemBuilder: (context, index) {
                             return LevelComponent(mLevelModel: mDashboardResponse.level![index]);
@@ -279,6 +286,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return mSuffixTextFieldIconWidget(ic_search);
     }
 
-    return IconButton(onPressed: () => mSearchCont.clear(), icon: const Icon(Icons.clear));
+    return IconButton(onPressed: () => mSearchCont.clear(), icon: Icon(Icons.clear));
   }
 }

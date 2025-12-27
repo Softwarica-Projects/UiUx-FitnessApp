@@ -106,8 +106,6 @@ class _FilterWorkoutScreenState extends State<FilterWorkoutScreen> {
       appStore.setLoading(false);
       setState(() {});
     }).whenComplete(() {
-      print("-------------111>>>${page}");
-      print("-------------112>>>${pages}");
       if (page > pages) {
         pages++;
         getWorkoutDataFavorites();
@@ -123,7 +121,7 @@ class _FilterWorkoutScreenState extends State<FilterWorkoutScreen> {
       if (page == 1) {
         mWorkoutList.clear();
       }
-      print(value);
+
       Iterable it = value.data!;
       it.map((e) => mWorkoutList.add(e)).toList();
       setState(() {});
@@ -148,7 +146,7 @@ class _FilterWorkoutScreenState extends State<FilterWorkoutScreen> {
       if (page == 1) {
         mWorkoutList.clear();
       }
-      print(value);
+
       Iterable it = value.data!;
       it.map((e) => mWorkoutList.add(e)).toList();
       appStore.setLoading(false);
@@ -167,7 +165,7 @@ class _FilterWorkoutScreenState extends State<FilterWorkoutScreen> {
       if (page == 1) {
         mWorkoutList.clear();
       }
-      print(value);
+
       Iterable it = value.data!;
       it.map((e) => mWorkoutList.add(e)).toList();
       setState(() {});
@@ -291,7 +289,6 @@ class _FilterWorkoutScreenState extends State<FilterWorkoutScreen> {
                                             ids: mList.toString().removeAllWhiteSpace().replaceAll("[", "").replaceAll("]", "").trim(),
                                             isTypes: list[index].id == 1 ? true : false,
                                             isLevel: list[index].id == 2 ? true : false);
-                                        print(mList);
                                       });
                                 });
                           }

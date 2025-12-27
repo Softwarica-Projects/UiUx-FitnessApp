@@ -36,8 +36,6 @@ class _FilterWorkoutBottomSheetState extends State<FilterWorkoutBottomSheet> {
   List<int> mLevelIdList = [];
   List<int> mWorkoutIdList = [];
 
-
-
   @override
   Widget build(BuildContext context) {
     mLevelIdList.clear();
@@ -114,7 +112,7 @@ class _FilterWorkoutBottomSheetState extends State<FilterWorkoutBottomSheet> {
                       color: primaryColor,
                       onTap: () {
                         widget.onCall!.call(mWorkoutIdList);
-                        print(mWorkoutIdList);
+
                         finish(context);
                       },
                     ).paddingSymmetric(horizontal: 16, vertical: 16),

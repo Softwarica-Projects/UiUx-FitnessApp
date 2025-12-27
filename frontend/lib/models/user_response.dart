@@ -33,7 +33,6 @@ class Data {
   String? createdAt;
   String? updatedAt;
   UserProfile? userProfile;
-  int? isSubscribe;
 
   Data(
       {this.id,
@@ -51,8 +50,7 @@ class Data {
       this.loginType,
       this.createdAt,
       this.updatedAt,
-      this.userProfile,
-      this.isSubscribe});
+      this.userProfile});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -71,7 +69,6 @@ class Data {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     userProfile = json['user_profile'] != null ? new UserProfile.fromJson(json['user_profile']) : null;
-    isSubscribe = json['is_subscribe'];
   }
 
   Map<String, dynamic> toJson() {
@@ -94,7 +91,6 @@ class Data {
     if (this.userProfile != null) {
       data['user_profile'] = this.userProfile!.toJson();
     }
-    data['is_subscribe'] = this.isSubscribe;
     return data;
   }
 }
@@ -138,167 +134,6 @@ class UserProfile {
     data['user_id'] = this.userId;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    return data;
-  }
-}
-
-class SubscriptionDetail {
-  int? isSubscribe;
-  SubscriptionPlan? subscriptionPlan;
-
-  SubscriptionDetail({this.isSubscribe, this.subscriptionPlan});
-
-  SubscriptionDetail.fromJson(Map<String, dynamic> json) {
-    isSubscribe = json['is_subscribe'];
-    subscriptionPlan = json['subscription_plan'] != null ? new SubscriptionPlan.fromJson(json['subscription_plan']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['is_subscribe'] = this.isSubscribe;
-    if (this.subscriptionPlan != null) {
-      data['subscription_plan'] = this.subscriptionPlan!.toJson();
-    }
-    return data;
-  }
-}
-
-class SubscriptionPlan {
-  int? id;
-  int? userId;
-  String? userName;
-  int? packageId;
-  String? packageName;
-  num? totalAmount;
-  String? paymentType;
-  String? txnId;
-  TransactionDetail? transactionDetail;
-  String? paymentStatus;
-  String? status;
-  PackageData? packageData;
-  String? subscriptionStartDate;
-  String? subscriptionEndDate;
-  String? createdAt;
-  String? updatedAt;
-
-  SubscriptionPlan(
-      {this.id,
-      this.userId,
-      this.userName,
-      this.packageId,
-      this.packageName,
-      this.totalAmount,
-      this.paymentType,
-      this.txnId,
-      this.transactionDetail,
-      this.paymentStatus,
-      this.status,
-      this.packageData,
-      this.subscriptionStartDate,
-      this.subscriptionEndDate,
-      this.createdAt,
-      this.updatedAt});
-
-  SubscriptionPlan.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    userName = json['user_name'];
-    packageId = json['package_id'];
-    packageName = json['package_name'];
-    totalAmount = json['total_amount'];
-    paymentType = json['payment_type'];
-    txnId = json['txn_id'];
-    transactionDetail = json['transaction_detail'] != null ? new TransactionDetail.fromJson(json['transaction_detail']) : null;
-    paymentStatus = json['payment_status'];
-    status = json['status'];
-    packageData = json['package_data'] != null ? new PackageData.fromJson(json['package_data']) : null;
-    subscriptionStartDate = json['subscription_start_date'];
-    subscriptionEndDate = json['subscription_end_date'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['user_name'] = this.userName;
-    data['package_id'] = this.packageId;
-    data['package_name'] = this.packageName;
-    data['total_amount'] = this.totalAmount;
-    data['payment_type'] = this.paymentType;
-    data['txn_id'] = this.txnId;
-    if (this.transactionDetail != null) {
-      data['transaction_detail'] = this.transactionDetail!.toJson();
-    }
-    data['payment_status'] = this.paymentStatus;
-    data['status'] = this.status;
-    if (this.packageData != null) {
-      data['package_data'] = this.packageData!.toJson();
-    }
-    data['subscription_start_date'] = this.subscriptionStartDate;
-    data['subscription_end_date'] = this.subscriptionEndDate;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
-}
-
-class PackageData {
-  int? id;
-  String? name;
-  num? price;
-  String? status;
-  int? duration;
-  String? createdAt;
-  String? updatedAt;
-  String? description;
-  String? durationUnit;
-
-  PackageData({this.id, this.name, this.price, this.status, this.duration, this.createdAt, this.updatedAt, this.description, this.durationUnit});
-
-  PackageData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    price = json['price'];
-    status = json['status'];
-    duration = json['duration'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    description = json['description'];
-    durationUnit = json['duration_unit'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['status'] = this.status;
-    data['duration'] = this.duration;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['description'] = this.description;
-    data['duration_unit'] = this.durationUnit;
-    return data;
-  }
-}
-
-class TransactionDetail {
-  String? name;
-  int? addedBy;
-
-  TransactionDetail({this.name, this.addedBy});
-
-  TransactionDetail.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    addedBy = json['added_by'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['added_by'] = this.addedBy;
     return data;
   }
 }

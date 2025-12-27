@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDj5bPX4r81JE8QULHHE7kaS99se-43KxM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>995218531749</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>np.com.softwarica.habittracker</string>
+	<key>PROJECT_ID</key>
+	<string>habit-tracker-b1184</string>
+	<key>STORAGE_BUCKET</key>
+	<string>habit-tracker-b1184.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:995218531749:ios:62e16d93ddc96d03f6744c</string>
+</dict>
+</plist>

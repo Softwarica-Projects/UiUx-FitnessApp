@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/screens/exercise_list_screen.dart';
 import '../../extensions/extension_util/string_extensions.dart';
 import '../../extensions/extension_util/context_extensions.dart';
 import '../../extensions/extension_util/int_extensions.dart';
@@ -32,7 +33,7 @@ class _LevelComponentState extends State<LevelComponent> {
         )
       ],
     ).paddingBottom(16).onTap(() {
-      //todo
+      ExerciseListScreen(mTitle: widget.mLevelModel!.title.validate(), isLevel: true, id: widget.mLevelModel!.id.validate()).launch(context);
     });
   }
 }
