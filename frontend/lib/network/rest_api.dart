@@ -1,11 +1,13 @@
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
 import 'package:habit_tracker/models/base_response.dart';
+import 'package:habit_tracker/models/blog_detail_response.dart';
 import 'package:habit_tracker/models/body_part_response.dart';
 import 'package:habit_tracker/models/category_diet_response.dart';
 import 'package:habit_tracker/models/dashboard_response.dart';
 import 'package:habit_tracker/models/day_exercise_response.dart';
 import 'package:habit_tracker/models/diet_response.dart';
 import 'package:habit_tracker/models/equipment_response.dart';
+import 'package:habit_tracker/models/exercise_detail_response.dart';
 import 'package:habit_tracker/models/exercise_response.dart';
 import 'package:habit_tracker/models/get_setting_response.dart';
 import 'package:habit_tracker/models/level_response.dart';
@@ -126,6 +128,16 @@ Future<ExerciseResponse> getExerciseListApi({int? page}) async {
 
 Future<DayExerciseResponse> getDayExerciseApi(int? id) async {
   return DayExerciseResponse.fromJson(await fakePagination(data: demoDayExercises.map((x) => x.toJson()).toList(), page: 1));
+}
+
+Future<ExerciseDetailResponse> geExerciseDetailApi(int? id) async {
+  await demoDelay();
+  return ExerciseDetailResponse.fromJson(demoExercises.isNotEmpty ? {"data": demoExercises.first.toJson()} : {});
+}
+
+Future<BlogDetailResponse> setExerciseHistory(Map req) async {
+  await demoDelay();
+  return BlogDetailResponse.fromJson({"id": 1, "title": "Demo Exercise History", "content": "This is a fake exercise history entry."});
 }
 
 ///[Workout]

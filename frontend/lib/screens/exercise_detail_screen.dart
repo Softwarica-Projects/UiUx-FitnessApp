@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/extensions/constants.dart';
 import 'package:habit_tracker/screens/chewie_screen.dart';
+import 'package:habit_tracker/screens/exercise_duration_screen.dart';
 import 'package:habit_tracker/screens/exercise_duration_screencast.dart';
 
 import '../../extensions/app_button.dart';
@@ -24,8 +25,6 @@ import '../utils/app_colors.dart';
 import '../utils/app_common.dart';
 import '../utils/app_constants.dart';
 import '../utils/app_images.dart';
-
-import '../components/exercise_duration_screen.dart';
 
 class ExerciseDetailScreen extends StatefulWidget {
   final int? mExerciseId;
