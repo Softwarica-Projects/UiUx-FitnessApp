@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:habit_tracker/screens/sign_in_screen.dart';
+import 'package:habit_tracker/extensions/constants.dart';
+import 'package:habit_tracker/languageConfiguration/LanguageDataConstant.dart';
+import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
+import 'package:habit_tracker/network/rest_api.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../extensions/extension_util/duration_extensions.dart';
 import '../../extensions/extension_util/int_extensions.dart';
@@ -10,6 +16,7 @@ import '../../screens/dashboard_screen.dart';
 import '../../utils/app_images.dart';
 import '../extensions/shared_pref.dart';
 import '../utils/app_constants.dart';
+import 'sign_in_screen.dart';
 import 'walk_through_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +30,9 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    //todo ask notificatin permission
+    Future.delayed(Duration.zero).then((val) {
+      _checkNotifyPermission();
+    });
   }
 
   init() async {
@@ -44,6 +53,54 @@ class SplashScreenState extends State<SplashScreen> {
     if (mounted) super.setState(fn);
   }
 
+  void _checkNotifyPermission() async {
+    String versionNo = getStringAsync(CURRENT_LAN_VERSION, defaultValue: LanguageVersion);
+    await getLanguageList(versionNo).then((value) {
+      appStore.setLoading(false);
+      if (value.status == true) {
+        setValue(CURRENT_LAN_VERSION, value.currentVersionNo.toString());
+        if (value.data!.length > 0) {
+          defaultServerLanguageData = value.data;
+          performLanguageOperation(defaultServerLanguageData);
+          setValue(LanguageJsonDataRes, value.toJson());
+          bool isSetLanguage = sharedPreferences.getBool(IS_SELECTED_LANGUAGE_CHANGE) ?? false;
+          if (!isSetLanguage) {
+            for (int i = 0; i < value.data!.length; i++) {
+              if (value.data![i].isDefaultLanguage == 1) {
+                setValue(SELECTED_LANGUAGE_CODE, value.data![i].languageCode);
+                setValue(SELECTED_LANGUAGE_COUNTRY_CODE, value.data![i].countryCode);
+                break;
+              }
+            }
+          }
+        } else {
+          defaultServerLanguageData = [];
+          selectedServerLanguageData = null;
+          setValue(LanguageJsonDataRes, "");
+        }
+      } else {
+        String getJsonData = getStringAsync(LanguageJsonDataRes) ?? '';
+
+        if (getJsonData.isNotEmpty) {
+          ServerLanguageResponse languageSettings = ServerLanguageResponse.fromJson(json.decode(getJsonData.trim()));
+          if (languageSettings.data!.length > 0) {
+            defaultServerLanguageData = languageSettings.data;
+            performLanguageOperation(defaultServerLanguageData);
+          }
+        }
+      }
+    }).catchError((error) {
+      appStore.setLoading(false);
+      // log(error);
+    });
+    if (await Permission.notification.isGranted) {
+      init();
+    } else {
+      await Permission.notification.request();
+      init();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -54,6 +111,7 @@ class SplashScreenState extends State<SplashScreen> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
+        // backgroundColor: appStore.isDarkMode ? context.scaffoldBackgroundColor : whiteColor,
         body: Image.asset(
           ic_splash,
           width: double.maxFinite,

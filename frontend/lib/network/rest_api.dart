@@ -1,3 +1,4 @@
+import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
 import 'package:habit_tracker/models/base_response.dart';
 
 import '../demoData.dart';
@@ -21,4 +22,11 @@ Future<LoginResponse> updateProfileApi(Map req) async {
 Future<FitnessBaseResponse> forgotPwdApi(Map req) async {
   await demoDelay();
   return FitnessBaseResponse.fromJson({"message": "Password reset link sent"});
+}
+
+Future<ServerLanguageResponse> getLanguageList(versionNo) async {
+  await demoDelay();
+  return ServerLanguageResponse.fromJson({
+    "languages": ["en"]
+  });
 }
