@@ -70,3 +70,8 @@ Future<DashboardResponse> getDashboardApi() async {
   await demoDelay();
   return demoDashboard;
 }
+///[Diet Category]
+Future<CategoryDietResponse> getDietCategoryApi({int? page}) async {
+  final categoryList = demoDietCategories.map((e) => e.toJson()).toList();
+  return CategoryDietResponse.fromJson(await fakePagination(data: categoryList, page: page ?? 1));
+}
