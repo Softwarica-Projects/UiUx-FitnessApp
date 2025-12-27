@@ -1,5 +1,7 @@
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
 import 'package:habit_tracker/models/base_response.dart';
+import 'package:habit_tracker/models/dashboard_response.dart';
+import 'package:habit_tracker/models/get_setting_response.dart';
 import 'package:habit_tracker/models/level_response.dart';
 import 'package:habit_tracker/utils/app_config.dart';
 
@@ -31,6 +33,12 @@ Future<ServerLanguageResponse> getLanguageList(versionNo) async {
 }
 
 ///[Settings]
+
+Future<GetSettingResponse> getSettingApi() async {
+  await demoDelay();
+  return GetSettingResponse.fromJson({"setting": "demo", "value": true});
+}
+
 Future<FitnessBaseResponse> changePwdApi(Map req) async {
   await demoDelay();
   return FitnessBaseResponse.fromJson({"message": "Password changed successfully"});
@@ -49,4 +57,10 @@ Future<LoginResponse> updateProfileApi(Map req) async {
 ///[Levels]
 Future<LevelResponse> getLevelListApi({int? page = 1, int mPerPage = LEVEL_PER_PAGE}) async {
   return LevelResponse.fromJson(await fakePagination(data: demoLevels.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+
+///[Dashboard]
+Future<DashboardResponse> getDashboardApi() async {
+  await demoDelay();
+  return demoDashboard;
 }
