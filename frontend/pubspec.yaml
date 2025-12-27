@@ -40,6 +40,9 @@ dependencies:
   url_launcher: ^6.3.0
   youtube_player_flutter: null
   flutter_tts: ^4.0.2
+  flutter_time_picker_spinner: ^2.0.0
+  syncfusion_flutter_charts: ^26.2.14
+  syncfusion_flutter_datepicker: ^26.2.13
 
 dependency_overrides:
   intl: ^0.18.1

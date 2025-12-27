@@ -10,6 +10,7 @@ import 'package:habit_tracker/models/equipment_response.dart';
 import 'package:habit_tracker/models/exercise_detail_response.dart';
 import 'package:habit_tracker/models/exercise_response.dart';
 import 'package:habit_tracker/models/get_setting_response.dart';
+import 'package:habit_tracker/models/graph_response.dart';
 import 'package:habit_tracker/models/level_response.dart';
 import 'package:habit_tracker/models/workout_detail_response.dart';
 import 'package:habit_tracker/models/workout_response.dart';
@@ -167,4 +168,20 @@ Future<WorkoutDetailResponse> getWorkoutDetailApi(int? id) async {
 ///[Body Part]
 Future<BodyPartResponse> getBodyPartApi(int? page) async {
   return BodyPartResponse.fromJson(await fakePagination(data: demoBodyParts.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+
+///[Progress]
+
+Future<FitnessBaseResponse> setProgressApi(Map req) async {
+  await demoDelay();
+  return FitnessBaseResponse.fromJson({"message": "Progress updated"});
+}
+
+Future<FitnessBaseResponse> deleteProgressApi(Map req) async {
+  await demoDelay();
+  return FitnessBaseResponse.fromJson({"message": "Progress deleted"});
+}
+
+Future<GraphResponse> getProgressApi(String? type, {int? page = 1, String? isFilterType, bool? isFilter = false}) async {
+  return GraphResponse.fromJson(await fakePagination(data: demoProgress.map((e) => e.toJson()).toList(), page: page ?? 1));
 }
