@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:habit_tracker/components/equipment_component.dart';
+import 'package:habit_tracker/extensions/horizontal_list.dart';
 import 'package:habit_tracker/network/rest_api.dart';
+import 'package:habit_tracker/screens/view_equipment_screen.dart';
 
 import '../../components/level_component.dart';
 import '../../extensions/decorations.dart';
@@ -164,7 +167,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     ).paddingSymmetric(horizontal: 16),
                     16.height,
                     //todo body part
-                    //todo equipment
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        10.height,
+                        mHeading(
+                          languages.lblEquipmentsExercise,
+                          onCall: () {
+                            ViewEquipmentScreen().launch(context);
+                          },
+                        ),
+                        HorizontalList(
+                          physics:const BouncingScrollPhysics(),
+                          itemCount: mDashboardResponse.equipment!.length,
+                          padding: const. EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          spacing: 16,
+                          itemBuilder: (context, index) {
+                            return EquipmentComponent(mEquipmentModel: mDashboardResponse.equipment![index]);
+                          },
+                        ),
+                      ],
+                    ).visible(mDashboardResponse.equipment!.isNotEmpty),
                     //todo workouts
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

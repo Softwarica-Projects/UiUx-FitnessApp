@@ -1,6 +1,7 @@
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
 import 'package:habit_tracker/models/base_response.dart';
 import 'package:habit_tracker/models/dashboard_response.dart';
+import 'package:habit_tracker/models/equipment_response.dart';
 import 'package:habit_tracker/models/get_setting_response.dart';
 import 'package:habit_tracker/models/level_response.dart';
 import 'package:habit_tracker/utils/app_config.dart';
@@ -57,6 +58,11 @@ Future<LoginResponse> updateProfileApi(Map req) async {
 ///[Levels]
 Future<LevelResponse> getLevelListApi({int? page = 1, int mPerPage = LEVEL_PER_PAGE}) async {
   return LevelResponse.fromJson(await fakePagination(data: demoLevels.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+
+///[Equipment]
+Future<EquipmentResponse> getEquipmentListApi({int? page = 1}) async {
+  return EquipmentResponse.fromJson(await fakePagination(data: demoEquipment.map((e) => e.toJson()).toList(), page: page ?? 1));
 }
 
 ///[Dashboard]
