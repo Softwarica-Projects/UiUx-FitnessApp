@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:habit_tracker/network/rest_api.dart';
 import 'package:habit_tracker/screens/dashboard_screen.dart';
+import 'package:habit_tracker/screens/forgot_pwd_screen.dart';
 
 import '../../extensions/extension_util/context_extensions.dart';
 import '../../extensions/extension_util/int_extensions.dart';
@@ -209,7 +210,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ],
                             ).expand(),
                             Text(languages.lblForgotPassword, style: secondaryTextStyle(color: primaryColor)).onTap(() {
-                              //TODO forgot password screen
+                              ForgotPwdScreen().launch(context);
                             }, hoverColor: Colors.transparent, splashColor: Colors.transparent, highlightColor: Colors.transparent),
                           ],
                         ),
