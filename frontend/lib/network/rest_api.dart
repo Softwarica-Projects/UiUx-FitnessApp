@@ -12,6 +12,7 @@ import 'package:habit_tracker/models/exercise_response.dart';
 import 'package:habit_tracker/models/get_setting_response.dart';
 import 'package:habit_tracker/models/graph_response.dart';
 import 'package:habit_tracker/models/level_response.dart';
+import 'package:habit_tracker/models/notification_response.dart';
 import 'package:habit_tracker/models/workout_detail_response.dart';
 import 'package:habit_tracker/models/workout_response.dart';
 import 'package:habit_tracker/models/workout_type_response.dart';
@@ -184,4 +185,14 @@ Future<FitnessBaseResponse> deleteProgressApi(Map req) async {
 
 Future<GraphResponse> getProgressApi(String? type, {int? page = 1, String? isFilterType, bool? isFilter = false}) async {
   return GraphResponse.fromJson(await fakePagination(data: demoProgress.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+
+///[Notifications]
+Future<NotificationResponse> notificationApi() async {
+  return NotificationResponse.fromJson(await fakePagination(data: notifications.map((x) => x.toJson()).toList(), page: 1));
+}
+
+Future<NotificationResponse> notificationStatusApi(String? id) async {
+  await demoDelay();
+  return demoNotificationDetails;
 }
