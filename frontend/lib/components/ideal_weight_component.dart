@@ -40,7 +40,7 @@ class IdealWeightComponentState extends State<IdealWeightComponent> with TickerP
   }
 
   init() async {
-    await convertCmToFeet(double.parse(userStore.height.validate()));
+    await convertCmToFeet(double.tryParse(userStore.height.validate()));
     init2();
   }
 
@@ -61,7 +61,8 @@ class IdealWeightComponentState extends State<IdealWeightComponent> with TickerP
     mCm = userStore.heightUnit == FEET ? double.parse(userStore.height.validate()) * 30.48 : double.parse(userStore.height.validate());
   }
 
-  convertCmToFeet(double cm) {
+  convertCmToFeet(double? cm) {
+    if (cm == null) return;
     double totalInches = cm / 2.54;
     feet = (totalInches / 12).floor();
     inches = (totalInches % 12).round();

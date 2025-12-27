@@ -230,8 +230,8 @@ abstract class UserStoreBase with Store {
     phoneNo = '';
     gender = '';
     age = '';
-    height = '';
-    weight = '';
+    height = '0';
+    weight = '0';
     weightUnit = '';
     heightUnit = '';
   }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/double_back_to_close_app.dart';
 import 'package:habit_tracker/components/permission.dart';
 import 'package:habit_tracker/screens/diet_screen.dart';
+import 'package:habit_tracker/screens/profile_screen.dart';
+import 'package:habit_tracker/screens/progress_screen.dart';
+import 'package:habit_tracker/screens/schedule_Screen.dart';
 import 'package:habit_tracker/utils/app_constants.dart';
 
 import '../../extensions/extension_util/context_extensions.dart';
@@ -29,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  final tab = [HomeScreen(), DietScreen(), SizedBox(), SizedBox(), SizedBox()];
+  final tab = [HomeScreen(), DietScreen(), ProgressScreen(), ScheduleScreen(), ProfileScreen()];
 
   List<BottomBarItemModel> bottomItemList = [
     BottomBarItemModel(iconData: ic_home_outline, selectedIconData: ic_home_fill, labelText: languages.lblHome),

@@ -1,4 +1,5 @@
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
+import 'package:habit_tracker/main.dart';
 import 'package:habit_tracker/models/ScheduledResponse.dart';
 import 'package:habit_tracker/models/app_setting_response.dart';
 import 'package:habit_tracker/models/base_response.dart';
@@ -27,6 +28,7 @@ import '../models/login_response.dart';
 ///[Auth]
 Future<LoginResponse> logInApi(request) async {
   await demoDelay();
+  await userStore.setLogin(true);
   return LoginResponse.fromJson(demoUser.toJson());
 }
 

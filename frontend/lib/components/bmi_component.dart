@@ -41,21 +41,23 @@ class BMIComponentState extends State<BMIComponent> with TickerProviderStateMixi
   }
 
   init() async {
-    convertLbsToKg();
-    convertFeetToCm();
+    try {
+      convertLbsToKg();
+      convertFeetToCm();
 
-    double m = (mCm)! * 0.01;
-    mBMI = mKg! / (m * m);
+      double m = ((mCm) ?? 0) * 0.01;
+      mBMI = (mKg ?? 0) / (m * m);
+    } catch (ex) {}
     super.initState();
   }
 
   void convertLbsToKg() {
-    double a = double.parse(userStore.weight.toString()) * 2.2046;
-    mKg = userStore.weightUnit == LBS ? a : double.parse(userStore.weight.validate());
+    double a = (double.tryParse(userStore.weight.toString()) ?? 0) * 2.2046;
+    mKg = userStore.weightUnit == LBS ? a : double.tryParse(userStore.weight.validate());
   }
 
   void convertFeetToCm() {
-    mCm = userStore.heightUnit == FEET ? double.parse(userStore.height.validate()) * 30.48 : double.parse(userStore.height.validate());
+    mCm = userStore.heightUnit == FEET ? (double.tryParse(userStore.height.validate()) ?? 0) * 30.48 : double.tryParse(userStore.height.validate());
   }
 
   @override
@@ -86,7 +88,7 @@ class BMIComponentState extends State<BMIComponent> with TickerProviderStateMixi
           12.height,
           Image.asset(ic_bmi, width: 50, height: 50, color: primaryColor),
           10.height,
-          Text(mBMI!.toStringAsFixed(2).validate(), style: boldTextStyle(size: 19)),
+          if (mBMI != null) Text(mBMI!.toStringAsFixed(2).validate(), style: boldTextStyle(size: 19)),
           Text(languages.lblKcal, style: secondaryTextStyle()),
         ],
       ),
