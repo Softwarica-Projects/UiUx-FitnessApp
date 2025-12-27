@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,6 +21,7 @@ import '../extensions/shared_pref.dart';
 import '../extensions/text_styles.dart';
 import '../main.dart';
 import '../models/progress_setting_model.dart';
+import '../models/reminder_model.dart';
 import 'app_constants.dart';
 
 class DiagonalPathClipperTwo extends CustomClipper<Path> {
@@ -90,6 +93,31 @@ toast(String? value, {ToastGravity? gravity, length = Toast.LENGTH_SHORT, Color?
   Fluttertoast.showToast(msg: value.validate(), toastLength: length, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: bgColor, textColor: textColor, fontSize: 16.0);
 }
 
+setLogInValue() {
+  userStore.setLogin(getBoolAsync(IS_LOGIN));
+  if (userStore.isLoggedIn) {
+    userStore.setToken(getStringAsync(TOKEN));
+    userStore.setUserID(getIntAsync(USER_ID));
+    userStore.setUserEmail(getStringAsync(EMAIL));
+    userStore.setFirstName(getStringAsync(FIRSTNAME));
+    userStore.setLastName(getStringAsync(LASTNAME));
+    userStore.setUserPassword(getStringAsync(PASSWORD));
+    userStore.setUserImage(getStringAsync(USER_PROFILE_IMG));
+    userStore.setPhoneNo(getStringAsync(PHONE_NUMBER));
+    userStore.setDisplayName(getStringAsync(DISPLAY_NAME));
+    userStore.setGender(getStringAsync(GENDER));
+    userStore.setAge(getStringAsync(AGE));
+    userStore.setHeight(getStringAsync(HEIGHT));
+    userStore.setWeight(getStringAsync(WEIGHT));
+
+    String notificationData = getStringAsync(NOTIFICATION_DETAIL);
+    if (notificationData.isNotEmpty) {
+      Iterable mList = jsonDecode(getStringAsync(NOTIFICATION_DETAIL));
+      notificationStore.mRemindList = mList.map((model) => ReminderModel.fromJson(model)).toList();
+    }
+  }
+}
+
 String parseHtmlString(String? htmlString) {
   return parse(parse(htmlString).body!.text).documentElement!.text;
 }
@@ -152,6 +180,14 @@ Widget mOption(String img, String title, Function? onCall) {
       onCall!.call();
     },
   );
+}
+
+Future<void> getSettingData() async {
+  //todo
+}
+
+Future<void> getUSerDetail(BuildContext context, int? id) async {
+  //todo
 }
 
 Widget mSuffixTextFieldIconWidget(String? img) {

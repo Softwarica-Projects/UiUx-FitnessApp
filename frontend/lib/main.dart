@@ -9,9 +9,15 @@ import 'package:habit_tracker/languageConfiguration/AppLocalizations.dart';
 import 'package:habit_tracker/languageConfiguration/BaseLanguage.dart';
 import 'package:habit_tracker/languageConfiguration/LanguageDataConstant.dart';
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
+import 'package:habit_tracker/store/NotificationStore/NotificationStore.dart';
+import 'package:habit_tracker/store/UserStore/UserStore.dart';
+import 'package:habit_tracker/store/app_store.dart';
 import 'package:habit_tracker/utils/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+AppStore appStore = AppStore();
+UserStore userStore = UserStore();
+NotificationStore notificationStore = NotificationStore();
 LanguageJsonData? selectedServerLanguageData;
 List<LanguageJsonData>? defaultServerLanguageData = [];
 late Size mq;
