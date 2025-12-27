@@ -13,7 +13,7 @@ import '../extensions/text_styles.dart';
 import '../extensions/widgets.dart';
 import '../main.dart';
 import '../utils/app_colors.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
+import '../components/local_notification_service.dart';
 
 class ReminderScreen extends StatefulWidget {
   const ReminderScreen({super.key});
@@ -76,8 +76,8 @@ class _ReminderScreenState extends State<ReminderScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(notificationStore.mRemindList[index].title.validate(), style: boldTextStyle(size: 18)),
-                            Container(child: Icon(MaterialCommunityIcons.delete_outline)).paddingAll(4).onTap(() {
-                              AwesomeNotifications().cancel(notificationStore.mRemindList[index].id.validate());
+                            Container(child: Icon(MaterialCommunityIcons.delete_outline)).paddingAll(4).onTap(() async {
+                              await LocalNotificationService().cancel(notificationStore.mRemindList[index].id.validate());
                               notificationStore.removeToReminder(notificationStore.mRemindList[index]);
                               setState(() {});
                             })

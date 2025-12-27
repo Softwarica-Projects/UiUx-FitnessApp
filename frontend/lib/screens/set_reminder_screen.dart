@@ -14,10 +14,11 @@ import '../main.dart';
 import '../models/reminder_model.dart';
 import '../utils/app_colors.dart';
 import '../components/notification_utils.dart';
+import '../components/local_notification_service.dart';
 import '../extensions/app_button.dart';
 import '../extensions/app_text_field.dart';
 import '../extensions/constants.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
+// using LocalNotificationService instead of Awesome Notifications
 
 class SetReminderScreen extends StatefulWidget {
   static String tag = '/SetReminderScreen';
@@ -135,15 +136,14 @@ class SetReminderScreenState extends State<SetReminderScreen> {
                 onTap: () async {
                   if (mFormKey.currentState!.validate()) {
                     if (widget.isDaily == true) {
-                      for (int i = 0; i < 7; i++) {
-                        await AwesomeNotifications().createNotification(
-                          content: NotificationContent(
-                            id: i,
-                            channelKey: 'basic_channel',
-                            title: mReminderNameCount.text.validate(),
-                            body: mDescriptionCont.text.validate(),
-                          ),
-                          schedule: NotificationCalendar(weekday: i, hour: _dateTime.hour, minute: _dateTime.minute, second: 0, allowWhileIdle: true),
+                      for (int i = 1; i <= 7; i++) {
+                        await LocalNotificationService().scheduleWeeklyNotification(
+                          id: createUniqueId(),
+                          title: mReminderNameCount.text.validate(),
+                          body: mDescriptionCont.text.validate(),
+                          weekday: i,
+                          hour: _dateTime.hour,
+                          minute: _dateTime.minute,
                         );
                       }
                     } else {
@@ -157,14 +157,13 @@ class SetReminderScreenState extends State<SetReminderScreen> {
                       reminderModel.subTitle = mDescriptionCont.text.validate();
                       notificationStore.addToReminder(reminderModel);
                       NotificationWeekAndTime(dayOfTheWeek: day, timeOfDay: _dateTime, title: mReminderNameCount.text.validate(), subTitle: mDescriptionCont.text.validate());
-                      await AwesomeNotifications().createNotification(
-                        content: NotificationContent(
-                          id: notificationStore.mRemindList.length + 1,
-                          channelKey: 'scheduled_channel',
-                          title: mReminderNameCount.text.validate(),
-                          body: mDescriptionCont.text.validate(),
-                        ),
-                        schedule: NotificationCalendar(weekday: day, hour: _dateTime.hour, minute: _dateTime.minute, second: 0, allowWhileIdle: true, repeats: true),
+                      await LocalNotificationService().scheduleWeeklyNotification(
+                        id: reminderModel.id!,
+                        title: mReminderNameCount.text.validate(),
+                        body: mDescriptionCont.text.validate(),
+                        weekday: day,
+                        hour: _dateTime.hour,
+                        minute: _dateTime.minute,
                       );
                     }
                     finish(context, true);

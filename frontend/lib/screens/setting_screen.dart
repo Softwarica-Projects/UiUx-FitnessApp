@@ -1,4 +1,4 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+import '../components/local_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:habit_tracker/extensions/LiveStream.dart';
@@ -50,7 +50,7 @@ class SettingScreenState extends State<SettingScreen> {
         await removeKey(PASSWORD);
         await removeKey(IS_REMEMBER);
         isFirstTimeGraph = false;
-        AwesomeNotifications().dispose();
+        await LocalNotificationService().cancelAll();
         SignInScreen().launch(context, isNewTask: true);
       });
     }).catchError((error) {
