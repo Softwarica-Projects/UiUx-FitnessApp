@@ -1,19 +1,33 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/app_theme.dart';
-import 'package:habit_tracker/extensions/constants.dart';
-import 'package:habit_tracker/extensions/decorations.dart';
-import 'package:habit_tracker/extensions/system_utils.dart';
 import 'package:habit_tracker/languageConfiguration/AppLocalizations.dart';
 import 'package:habit_tracker/languageConfiguration/BaseLanguage.dart';
 import 'package:habit_tracker/languageConfiguration/LanguageDataConstant.dart';
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
-import 'package:habit_tracker/store/NotificationStore/NotificationStore.dart';
-import 'package:habit_tracker/store/UserStore/UserStore.dart';
 import 'package:habit_tracker/store/app_store.dart';
-import 'package:habit_tracker/utils/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../extensions/extension_util/string_extensions.dart';
+import '../../extensions/system_utils.dart';
+import '../store/NotificationStore/NotificationStore.dart';
+import '../utils/app_colors.dart';
+import 'app_theme.dart';
+import 'extensions/common.dart';
+import 'extensions/constants.dart';
+import 'extensions/decorations.dart';
+import 'extensions/shared_pref.dart';
+import 'models/progress_setting_model.dart';
+import 'network/rest_api.dart';
+import 'screens/no_internet_screen.dart';
+import 'screens/splash_screen.dart';
+import 'store/UserStore/UserStore.dart';
+import 'utils/app_common.dart';
+import 'utils/app_config.dart';
+import 'utils/app_constants.dart';
 
 AppStore appStore = AppStore();
 UserStore userStore = UserStore();
@@ -31,8 +45,46 @@ Future<void> main() async {
   setDefaultLocate();
   languages = (await AppLocalizations().load(Locale("EN")));
   initJsonFile();
+  setLogInValue();
   defaultAppButtonShapeBorder = RoundedRectangleBorder(borderRadius: radius(defaultAppButtonRadius));
+  await AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+      channelKey: 'basic_channel',
+      channelName: 'Basic Notifications',
+      channelDescription: 'Basic Notification Channel',
+      defaultColor: primaryColor,
+      playSound: true,
+      importance: NotificationImportance.High,
+      locked: true,
+      enableVibration: true,
+    ),
+    NotificationChannel(
+      channelKey: 'scheduled_channel',
+      channelName: 'Scheduled Notifications',
+      channelDescription: 'Scheduled Notification Channel',
+      defaultColor: primaryColor,
+      locked: true,
+      importance: NotificationImportance.High,
+      playSound: true,
+      enableVibration: true,
+    ),
+  ]);
+  if (!getStringAsync(PROGRESS_SETTINGS_DETAIL).isEmptyOrNull) {
+    userStore.addAllProgressSettingsListItem(jsonDecode(getStringAsync(PROGRESS_SETTINGS_DETAIL)).map<ProgressSettingModel>((e) => ProgressSettingModel.fromJson(e)).toList());
+  } else {
+    userStore.addAllProgressSettingsListItem(progressSettingList());
+  }
+
   runApp(MyApp());
+}
+
+Future<void> updatePlayerId() async {
+  Map req = {"player_id": getStringAsync(PLAYER_ID), "username": getStringAsync(USERNAME), "email": getStringAsync(EMAIL)};
+  await updateProfileApi(req).then((value) {
+    //
+  }).catchError((error) {
+    //
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -43,6 +95,32 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
+  bool isCurrentlyOnNoInternet = false;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() async {
+    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((e) {
+      if (e == ConnectivityResult.none) {
+        log('not connected');
+        isCurrentlyOnNoInternet = true;
+        push(NoInternetScreen());
+      } else {
+        if (isCurrentlyOnNoInternet) {
+          pop();
+          isCurrentlyOnNoInternet = false;
+          toast(languages.lblInternetIsConnected);
+        }
+        log('connected');
+      }
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -51,6 +129,7 @@ class MyAppState extends State<MyApp> {
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
+    _connectivitySubscription.cancel();
   }
 
   @override
@@ -63,6 +142,7 @@ class MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
+      home: SplashScreen(),
     );
   }
 }

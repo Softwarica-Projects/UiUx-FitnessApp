@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.0"
+  awesome_notifications:
+    dependency: "direct overridden"
+    description:
+      name: awesome_notifications
+      sha256: "0d5fa4457f2ba4e536adc3ef6af709cdcecf4a05a1f3035981e9afa2f899b2a8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -422,6 +430,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bounce:
+    dependency: "direct overridden"
+    description:
+      name: flutter_bounce
+      sha256: "445fb27c936a19ed053bd159dd8ba0f9857eebed553e34f3322734d33adb5539"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -532,6 +548,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  flutter_mobx:
+    dependency: "direct overridden"
+    description:
+      name: flutter_mobx
+      sha256: ba5e93467866a2991259dc51cffd41ef45f695c667c2b8e7b087bf24118b50fe
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -815,7 +839,7 @@ packages:
     source: hosted
     version: "2.0.0"
   mobx:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: mobx
       sha256: bf1a90e5bcfd2851fc6984e20eef69557c65d9e4d0a88f5be4cf72c9819ce6b0
