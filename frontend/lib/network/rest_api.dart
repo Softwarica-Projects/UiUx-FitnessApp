@@ -6,6 +6,11 @@ Future<LoginResponse> logInApi(request) async {
   return LoginResponse.fromJson(demoUser.toJson());
 }
 
+Future<LoginResponse> registerApi(Map req) async {
+  await demoDelay();
+  return LoginResponse.fromJson(demoUser.toJson());
+}
+
 Future<LoginResponse> updateProfileApi(Map req) async {
   await demoDelay();
   return LoginResponse.fromJson(demoUser.toJson());
