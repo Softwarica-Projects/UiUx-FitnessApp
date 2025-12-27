@@ -30,3 +30,8 @@ Future<ServerLanguageResponse> getLanguageList(versionNo) async {
     "languages": ["en"]
   });
 }
+
+Future<FitnessBaseResponse> changePwdApi(Map req) async {
+  await demoDelay();
+  return FitnessBaseResponse.fromJson({"message": "Password changed successfully"});
+}
