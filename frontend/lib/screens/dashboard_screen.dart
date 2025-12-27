@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/double_back_to_close_app.dart';
+import 'package:habit_tracker/screens/diet_screen.dart';
 
 import '../../extensions/extension_util/context_extensions.dart';
 import '../extensions/LiveStream.dart';

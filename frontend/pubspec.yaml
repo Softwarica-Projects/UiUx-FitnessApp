@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: ^2.5.2
   simple_pip_mode: ^0.8.0
   url_launcher: ^6.3.0
+  youtube_player_flutter: null
+  flutter_tts: ^4.0.2
 
 dependency_overrides:
   intl: ^0.18.1
