@@ -75,7 +75,6 @@ class WebViewScreenState extends State<WebViewScreen> {
             shouldOverrideUrlLoading: (controller, navigationAction) async {
               var uri = navigationAction.request.url;
               var url = navigationAction.request.url.toString();
-              print("URL----->>" + url.toString());
 
               if (url.contains(successUrl)) {
                 widget.onClick?.call('Success');

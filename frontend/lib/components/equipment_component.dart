@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/screens/exercise_list_screen.dart';
 import '../../extensions/decorations.dart';
 import '../../extensions/extension_util/context_extensions.dart';
 import '../../extensions/extension_util/int_extensions.dart';
@@ -67,7 +68,7 @@ class _EquipmentComponentState extends State<EquipmentComponent> {
                   }
                   widget.onCall!.call(mId);
                 } else {
-                  // todo
+                  ExerciseListScreen(mTitle: widget.mEquipmentModel!.title.validate(), isEquipment: true, id: widget.mEquipmentModel!.id.validate()).launch(context);
                 }
               })
             : Stack(
@@ -88,7 +89,7 @@ class _EquipmentComponentState extends State<EquipmentComponent> {
                   )
                 ],
               ).onTap(() {
-                //todo
+                ExerciseListScreen(mTitle: widget.mEquipmentModel!.title.validate(), isEquipment: true, id: widget.mEquipmentModel!.id.validate()).launch(context);
               }),
       ],
     );

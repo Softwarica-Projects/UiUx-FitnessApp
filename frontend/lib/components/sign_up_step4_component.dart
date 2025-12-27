@@ -77,7 +77,6 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
       mHeightCont.text = a.toStringAsFixed(2).toString();
     }
     mHeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mHeightCont.text.length));
-    print(a.toStringAsFixed(2).toString());
   }
 
   void convertCMToFeet() {
@@ -86,7 +85,6 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
       mHeightCont.text = a.toStringAsFixed(2).toString();
     }
     mHeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mHeightCont.text.length));
-    print(a.toStringAsFixed(2).toString());
   }
 
   void convertLbsToKg() {
@@ -95,7 +93,6 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
       mWeightCont.text = a.toStringAsFixed(2).toString();
     }
     mWeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mWeightCont.text.length));
-    print(a.toStringAsFixed(0).toString());
   }
 
   void convertKgToLbs() {
@@ -104,7 +101,6 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
       mWeightCont.text = a.toStringAsFixed(2).toString();
     }
     mWeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mWeightCont.text.length));
-    print(a.round().toString());
   }
 
   Future<void> saveData() async {
@@ -136,11 +132,9 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
       appStore.setLoading(false);
       userStore.setLogin(true);
       userStore.setToken(value.data!.apiToken.validate());
-      getUSerDetail(context, value.data!.id).then((value) {
+      getUserDetail(context, value.data!.id).then((value) {
         DashboardScreen().launch(context, isNewTask: true);
-      }).catchError((e) {
-        print("error=>" + e.toString());
-      });
+      }).catchError((e) {});
     }).catchError((e) {
       appStore.setLoading(false);
       toast(e.toString());

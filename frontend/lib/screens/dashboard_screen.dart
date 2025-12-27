@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/double_back_to_close_app.dart';
+import 'package:habit_tracker/components/permission.dart';
 import 'package:habit_tracker/screens/diet_screen.dart';
+import 'package:habit_tracker/utils/app_constants.dart';
 
 import '../../extensions/extension_util/context_extensions.dart';
 import '../extensions/LiveStream.dart';
@@ -50,7 +52,11 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
 
   init() async {
     await getSettingList();
-    //todo
+    Permissions.activityPermissionsGranted();
+
+    LiveStream().on(CHANGE_LANGUAGE, (p0) {
+      setState(() {});
+    });
   }
 
   Future<void> getSettingList() async {

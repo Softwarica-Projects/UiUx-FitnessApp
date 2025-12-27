@@ -102,7 +102,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
     GenderList.add(GenderModel(0, languages.lblMale, MALE));
     GenderList.add(GenderModel(1, languages.lblFemale, FEMALE));
     GenderList.forEach((element) {
-      print('userStore.gender' + userStore.gender.toString());
       if (element.key == userStore.gender) {
         selectGender = element.id.validate();
       }
@@ -182,7 +181,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
       mHeightCont.text = a.toStringAsFixed(2).toString();
     }
     mHeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mHeightCont.text.length));
-    print(a.toStringAsFixed(2).toString());
   }
 
   //Convert CM to Feet
@@ -192,7 +190,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with TickerProvid
       mHeightCont.text = a.toStringAsFixed(2).toString();
     }
     mHeightCont.selection = TextSelection.fromPosition(TextPosition(offset: mHeightCont.text.length));
-    print(a.toStringAsFixed(2).toString());
   }
 
   Widget mWeightOption(String? value, int? index) {

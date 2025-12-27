@@ -37,7 +37,6 @@ class _HtmlWidgetState extends State<HtmlWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("-------------------------->>>${extractSrc(widget.postContent ?? '')}");
     return Column(
       children: [
         extractSrc(widget.postContent ?? '').isEmptyOrNull

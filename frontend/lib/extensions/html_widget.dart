@@ -25,9 +25,7 @@ class HtmlWidget extends StatelessWidget {
 
   HtmlWidget({this.postContent, this.color, this.size});
 
-  void printContent() {
-    debugPrint("POST CONTENT::::: ${postContent}");
-  }
+  void printContent() {}
 
   @override
   Widget build(BuildContext context) {

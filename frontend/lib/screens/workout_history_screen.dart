@@ -44,23 +44,21 @@ class WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
 
   Future<void> getExerciseData() async {
     appStore.setLoading(true);
-    await getExerciseListApi(page: page)
-        .then((value) {
-          appStore.setLoading(false);
-          numPage = value.pagination!.totalPages;
-          isLastPage = false;
-          if (page == 1) {
-            mExerciseList.clear();
-          }
-          Iterable it = value.data!;
-          it.map((e) => mExerciseList.add(e)).toList();
-          setState(() {});
-        })
-        .catchError((e) {
-          isLastPage = true;
-          appStore.setLoading(false);
-          setState(() {});
-        });
+    await getExerciseListApi(page: page).then((value) {
+      appStore.setLoading(false);
+      numPage = value.pagination!.totalPages;
+      isLastPage = false;
+      if (page == 1) {
+        mExerciseList.clear();
+      }
+      Iterable it = value.data!;
+      it.map((e) => mExerciseList.add(e)).toList();
+      setState(() {});
+    }).catchError((e) {
+      isLastPage = true;
+      appStore.setLoading(false);
+      setState(() {});
+    });
   }
 
   @override
@@ -76,7 +74,6 @@ class WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   itemCount: mExerciseList.length,
                   itemBuilder: (context, index) {
-                    print("---------->>>${mExerciseList[index].id}");
                     return ExerciseComponent(mExerciseModel: mExerciseList[index]);
                   },
                 )

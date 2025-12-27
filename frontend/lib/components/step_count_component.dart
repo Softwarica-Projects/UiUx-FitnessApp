@@ -41,7 +41,6 @@ class StepCountComponentState extends State<StepCountComponent> {
   void onStepCount(StepCount event) {
     if (mounted) {
       setState(() {
-        print("------------50>>>${getStringAsync(ISSTEP)}");
         if (getStringAsync(ISSTEP) == 'newUser') {
           initialSteps = event.steps;
           userStore.setIsSTEP('oldUser');
@@ -52,7 +51,6 @@ class StepCountComponentState extends State<StepCountComponent> {
   }
 
   void onPedestrianStatusChanged(PedestrianStatus event) {
-    print(event);
     if (mounted) {
       setState(() {
         _status = event.status;
@@ -61,15 +59,12 @@ class StepCountComponentState extends State<StepCountComponent> {
   }
 
   void onPedestrianStatusError(error) {
-    print('onPedestrianStatusError: $error');
     setState(() {
       _status = 'Pedestrian Status not available';
     });
-    print(_status);
   }
 
   void onStepCountError(error) {
-    print('onStepCountError: $error');
     setState(() {
       isError = true;
       _steps = 'Not Supported';

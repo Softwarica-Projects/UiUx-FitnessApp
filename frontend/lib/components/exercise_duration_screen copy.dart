@@ -74,7 +74,6 @@ class ExerciseDurationScreenState extends State<ExerciseDurationScreen> with Tic
   void initState() {
     super.initState();
     WakelockPlus.enable();
-    print("----------229>>>${ExerciseDurationScreenState}");
     init();
     flutterTts = FlutterTts();
     initializePlayer();
@@ -139,13 +138,11 @@ class ExerciseDurationScreenState extends State<ExerciseDurationScreen> with Tic
       }
 
       if (_controller.value.isPlaying) {
-        print('Video is playing');
         if (isChanged == true) {
           mCountDownController.resume();
           isChanged = false;
         }
       } else if (_controller.value.isBuffering) {
-        print('Video is buffering');
       } else if (_controller.value.isInitialized) {
         mCountDownController.pause();
         flutterTts.pause();

@@ -77,7 +77,6 @@ class _ViewAllDietState extends State<ViewAllDiet> {
 
   @override
   Widget build(BuildContext context) {
-    print("dfgdfgdfgdfgdfg");
     return Scaffold(
       appBar: widget.isAssign == true || widget.isFav == true ? PreferredSize(preferredSize: Size.fromHeight(0), child: SizedBox()) : appBarWidget(widget.mTitle.validate(), context: context),
       body: Stack(

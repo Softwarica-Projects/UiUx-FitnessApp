@@ -27,15 +27,11 @@ class FavouriteScreenState extends State<FavouriteScreen> {
   void initState() {
     super.initState();
     init();
-    print("1234565");
-
   }
-
 
   @override
   void deactivate() {
     super.deactivate();
-    print("1234565");
   }
 
   init() async {

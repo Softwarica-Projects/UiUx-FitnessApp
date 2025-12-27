@@ -81,14 +81,10 @@ class ExerciseDurationScreencastState extends State<ExerciseDurationScreencast> 
 
   @override
   initState() {
-    print("xyz");
-    print("Screen1Video:aasdsd");
-    print("--------------85>>>>${widget.mExerciseModel?.data?.exerciseImage}");
     super.initState();
     WakelockPlus.enable();
 
     if (widget.mExerciseModel!.data!.sets != null) {
-      print("abc");
       widget.mExerciseModel!.data!.sets!.forEachIndexed((element, index) {
         mExTime!.add(element.time.toString());
         mRestTime!.add(element.rest.toString());

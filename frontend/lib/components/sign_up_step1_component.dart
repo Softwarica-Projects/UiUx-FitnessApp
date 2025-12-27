@@ -49,8 +49,6 @@ class _SignUpStep1ComponentState extends State<SignUpStep1Component> {
   @override
   void initState() {
     super.initState();
-    print("------------51>>>${getStringAsync(COUNTRY_CODE)}");
-    print("------------52>>>${countryCode}");
   }
 
   @override
@@ -208,8 +206,6 @@ class _SignUpStep1ComponentState extends State<SignUpStep1Component> {
               width: context.width(),
               color: primaryColor,
               onTap: () {
-                print("--------217>>>${mMobileNumberCont.text}");
-                print("--------218>>>${dialCode}");
                 if (mFormKey.currentState!.validate()) {
                   hideKeyboard(context);
                   userStore.setFirstName(mFNameCont.text);

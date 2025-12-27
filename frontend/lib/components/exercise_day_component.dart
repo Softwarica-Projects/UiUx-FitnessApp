@@ -26,8 +26,6 @@ class ExerciseDayComponent extends StatefulWidget {
 class ExerciseDayComponentState extends State<ExerciseDayComponent> {
   @override
   Widget build(BuildContext context) {
-    print("-----------31>>>>${widget.mSets}");
-
     return Container(
       decoration: boxDecorationRoundedWithShadow(12),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 8),

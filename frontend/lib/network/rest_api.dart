@@ -1,4 +1,6 @@
 import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
+import 'package:habit_tracker/models/ScheduledResponse.dart';
+import 'package:habit_tracker/models/app_setting_response.dart';
 import 'package:habit_tracker/models/base_response.dart';
 import 'package:habit_tracker/models/blog_detail_response.dart';
 import 'package:habit_tracker/models/body_part_response.dart';
@@ -7,12 +9,13 @@ import 'package:habit_tracker/models/dashboard_response.dart';
 import 'package:habit_tracker/models/day_exercise_response.dart';
 import 'package:habit_tracker/models/diet_response.dart';
 import 'package:habit_tracker/models/equipment_response.dart';
-import 'package:habit_tracker/models/exercise_detail_response.dart';
+import 'package:habit_tracker/models/exercise_detail_response.dart' hide Data;
 import 'package:habit_tracker/models/exercise_response.dart';
 import 'package:habit_tracker/models/get_setting_response.dart';
 import 'package:habit_tracker/models/graph_response.dart';
 import 'package:habit_tracker/models/level_response.dart';
 import 'package:habit_tracker/models/notification_response.dart';
+import 'package:habit_tracker/models/user_response.dart';
 import 'package:habit_tracker/models/workout_detail_response.dart';
 import 'package:habit_tracker/models/workout_response.dart';
 import 'package:habit_tracker/models/workout_type_response.dart';
@@ -195,4 +198,27 @@ Future<NotificationResponse> notificationApi() async {
 Future<NotificationResponse> notificationStatusApi(String? id) async {
   await demoDelay();
   return demoNotificationDetails;
+}
+
+///[Class Schedule]
+Future<ScheduledResponse> getClassSchedule({int? page = 1, String? selectedDate}) async {
+  return ScheduledResponse.fromJson(await fakePagination(data: demoScheduleList.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+
+Future<FitnessBaseResponse> getClassSchedulePlan(Map req) async {
+  await demoDelay();
+  return FitnessBaseResponse.fromJson({"message": "Class schedule plan set"});
+}
+
+Future<AppSettingResponse> getAppSettingApi() async {
+  await demoDelay();
+  return AppSettingResponse.fromJson({"theme": "light", "notifications": true});
+}
+
+Future<UserResponse> getUserDataApi({int? id}) async {
+  await demoDelay();
+  return UserResponse(
+      data: Data.fromJson(
+    demoUser.data!.toJson(),
+  ));
 }

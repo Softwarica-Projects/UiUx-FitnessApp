@@ -76,9 +76,7 @@ class ProgressComponentState extends State<ProgressComponent> {
         widget.onCall!.call();
         finish(context);
         setState(() {});
-      }).catchError((e) {
-        print(e.toString());
-      });
+      }).catchError((e) {});
     }
   }
 
@@ -91,9 +89,7 @@ class ProgressComponentState extends State<ProgressComponent> {
       widget.onCall!.call();
       finish(context);
       setState(() {});
-    }).catchError((e) {
-      print(e.toString());
-    });
+    }).catchError((e) {});
   }
 
   @override
@@ -155,9 +151,8 @@ class ProgressComponentState extends State<ProgressComponent> {
                       FocusScope.of(context).requestFocus(new FocusNode());
                       pickedDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2000), lastDate: DateTime.now());
                       if (pickedDate != null) {
-                        print(pickedDate);
                         formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate!);
-                        print(formattedDate);
+
                         setState(() {
                           countDownCont.text = formattedDate!;
                         });

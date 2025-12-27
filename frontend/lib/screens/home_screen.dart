@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:habit_tracker/screens/edit_profile_screen.dart';
+import 'package:habit_tracker/screens/notification_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:habit_tracker/utils/app_constants.dart';
 import '../../components/level_component.dart';
@@ -55,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getUserDetailsApiCall() async {
-    await getUSerDetail(context, userStore.userId).whenComplete(() {});
+    await getUserDetail(context, userStore.userId);
   }
 
   @override
@@ -106,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: cachedImage(userStore.profileImage.validate(), width: 42, height: 42, fit: BoxFit.cover).cornerRadiusWithClipRRect(100).paddingAll(1),
                     ).onTap(() {
-                      //todo
+                      EditProfileScreen().launch(context);
                     });
                   },
                 ),
@@ -135,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Image.asset(ic_notification, width: 24, height: 24, color: Colors.grey),
             ).onTap(() {
-              //todo
+              NotificationScreen().launch(context);
             }),
           ],
         ).paddingOnly(top: context.statusBarHeight + 16, left: 16, right: 16, bottom: 6),

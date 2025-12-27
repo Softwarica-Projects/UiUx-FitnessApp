@@ -45,7 +45,6 @@ class YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
       DeviceOrientation.portraitDown,
     ]);
     videoId = YoutubePlayer.convertUrlToId(widget.url!)!;
-    print("--------50>>>${videoId}");
 
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: videoId,

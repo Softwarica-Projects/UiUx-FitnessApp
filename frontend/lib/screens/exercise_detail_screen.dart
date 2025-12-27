@@ -95,7 +95,6 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
       double lbsValue = kgValue * 2.20462;
       value2 = lbsValue.toStringAsFixed(2);
     }
-    print("-----BBB>>>${value2}");
 
     return value2.isEmptyOrNull || value2 == '0.00'
         ? Text(value, style: boldTextStyle()).center()

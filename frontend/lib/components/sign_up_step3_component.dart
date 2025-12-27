@@ -41,7 +41,6 @@ class _SignUpStep3ComponentState extends State<SignUpStep3Component> {
   @override
   void didChangeDependencies() {
     if (widget.isNewTask != true) {
-      print(userStore.age);
       if (!userStore.age.isEmptyOrNull) {
         mSelectedIndex = int.parse(userStore.age.validate());
       }
@@ -68,11 +67,9 @@ class _SignUpStep3ComponentState extends State<SignUpStep3Component> {
                   useMagnifier: true,
                   selectionOverlay: SizedBox(),
                   itemExtent: 32.0,
-                  scrollController: FixedExtentScrollController(
-                    initialItem: userStore.age.validate().toInt()-17
-                  ),
+                  scrollController: FixedExtentScrollController(initialItem: userStore.age.validate().toInt() - 17),
                   onSelectedItemChanged: (int selectedItem) {
-                    mSelectedIndex = selectedItem+17;
+                    mSelectedIndex = selectedItem + 17;
                     setState(() {});
                   },
                   children: List<Widget>.generate(99 - 17 + 1, (int index) {
@@ -101,10 +98,10 @@ class _SignUpStep3ComponentState extends State<SignUpStep3Component> {
                 userStore.setAge(mSelectedIndex.toString());
                 appStore.signUpIndex = 3;
                 setState(() {});
-              }else{
-                 userStore.setAge(17.toString());
-                 appStore.signUpIndex = 3;
-                 setState(() {});
+              } else {
+                userStore.setAge(17.toString());
+                appStore.signUpIndex = 3;
+                setState(() {});
               }
             },
           ),

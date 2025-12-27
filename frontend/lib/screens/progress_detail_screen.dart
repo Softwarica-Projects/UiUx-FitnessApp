@@ -73,7 +73,6 @@ class ProgressDetailScreenState extends State<ProgressDetailScreen> {
 
       appStore.setLoading(false);
 
-      
       setState(() {});
     }).catchError((e) {
       appStore.setLoading(false);
@@ -106,7 +105,6 @@ class ProgressDetailScreenState extends State<ProgressDetailScreen> {
 
       appStore.setLoading(false);
 
-      
       setState(() {});
     }).catchError((e) {
       appStore.setLoading(false);
@@ -187,7 +185,6 @@ class ProgressDetailScreenState extends State<ProgressDetailScreen> {
                   mType: widget.mType,
                   mUnit: widget.mUnit,
                   onCall: () {
-                    print("${isLBSClicked}");
                     if (isLBSClicked == true) {
                       initLbs();
                     } else {
@@ -254,14 +251,12 @@ class ProgressDetailScreenState extends State<ProgressDetailScreen> {
       mWeight = index;
       if (index == 0) {
         if (!isLBSClicked) {
-          print("------------273>>>LBS");
           initLbs();
           isLBSClicked = true;
           isKGClicked = false;
         }
       } else {
         if (!isKGClicked) {
-          print("------------273>>>Kg");
           init();
           isKGClicked = true;
           isLBSClicked = false;

@@ -277,7 +277,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ids: mList.toString().removeAllWhiteSpace().replaceAll("[", "").replaceAll("]", "").trim(),
                                   isEquipment: list[index].id == 1 ? true : false,
                                   isLevel: list[index].id == 2 ? true : false);
-                              print(mList);
                             },
                           );
                         },
@@ -334,8 +333,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void filterList(List<int> mList) {
     mExerciseList.where((element) => mExerciseList.length > mList.length).toList();
-
-    print(mList);
   }
 
   Widget _getClearButton() {
