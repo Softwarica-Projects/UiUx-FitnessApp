@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  final tab = [HomeScreen(), SizedBox(), SizedBox(), SizedBox(), SizedBox()];
+  final tab = [HomeScreen(), DietScreen(), SizedBox(), SizedBox(), SizedBox()];
 
   List<BottomBarItemModel> bottomItemList = [
     BottomBarItemModel(iconData: ic_home_outline, selectedIconData: ic_home_fill, labelText: languages.lblHome),
