@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 bool? isFirstTime = false;
+bool? isFirstTimeGraph = false;
 
 class DashboardScreen extends StatefulWidget {
   @override
