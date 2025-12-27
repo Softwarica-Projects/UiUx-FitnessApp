@@ -188,7 +188,36 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ).visible(mDashboardResponse.equipment!.isNotEmpty),
-                    //todo workouts
+          Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        10.height,
+                        mHeading(
+                          languages.lblWorkouts,
+                          onCall: () {
+                            FilterWorkoutScreen().launch(context).then((value) {
+                              setState(() {});
+                            });
+                          },
+                        ),
+                        HorizontalList(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: mDashboardResponse.workout!.length,
+                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          spacing: 16,
+                          itemBuilder: (context, index) {
+                            return WorkoutComponent(
+                              mWorkoutModel: mDashboardResponse.workout![index],
+                              onCall: () {
+                                appStore.setLoading(true);
+                                setState(() {});
+                                appStore.setLoading(false);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ).visible(mDashboardResponse.workout!.isNotEmpty),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
