@@ -4,6 +4,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:habit_tracker/network/rest_api.dart';
+import 'package:habit_tracker/screens/dashboard_screen.dart';
 
 import '../../extensions/extension_util/context_extensions.dart';
 import '../../extensions/extension_util/int_extensions.dart';
@@ -66,9 +68,31 @@ class _SignInScreenState extends State<SignInScreen> {
     };
 
     if (mFormKey.currentState!.validate()) {
-      // todo
-      // appStore.setLoading(true);
+      appStore.setLoading(true);
+      await logInApi(req).then((value) async {
+        updatePlayerId();
+        if (value.data!.status == "active") {
+          if (getBoolAsync(IS_REMEMBER)) {
+            userStore.setUserPassword(mPassCont.text.trim());
+          }
+          if (userStore.email == mEmailCont.text.trim()) {
+            userStore.setIsSTEP('oldUser');
+          } else {
+            userStore.setIsSTEP('newUser');
+          }
 
+          getUSerDetail(context, value.data!.id).then((value) {
+            DashboardScreen().launch(context, isNewTask: true);
+          }).catchError((e) {
+            toast(e.toString());
+          });
+        } else {
+          toast(languages.lblContactAdmin);
+        }
+      }).catchError((e) {
+        appStore.setLoading(false);
+        toast(e.toString());
+      });
       setState(() {});
     }
   }
@@ -228,5 +252,14 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> updatePlayerId() async {
+    Map req = {"player_id": getStringAsync(PLAYER_ID), "username": getStringAsync(USERNAME), "email": getStringAsync(EMAIL)};
+    await updateProfileApi(req).then((value) {
+      //
+    }).catchError((error) {
+      //
+    });
   }
 }
