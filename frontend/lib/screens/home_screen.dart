@@ -162,11 +162,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: defaultInputDecoration(context, label: languages.lblSearch, isFocusTExtField: true),
                       onTap: () {
                         hideKeyboard(context);
-                        //todo
+                              SearchScreen().launch(context);
                       },
                     ).paddingSymmetric(horizontal: 16),
                     16.height,
-                    //todo body part
+                 Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        mHeading(
+                          languages.lblBodyPartExercise,
+                          onCall: () {
+                            ViewBodyPartScreen().launch(context);
+                          },
+                        ),
+                        HorizontalList(
+                          physics: BouncingScrollPhysics(),
+                          controller: mScrollController,
+                          itemCount: mDashboardResponse!.bodypart!.length,
+                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          spacing: 16,
+                          itemBuilder: (context, index) {
+                            return BodyPartComponent(bodyPartModel: mDashboardResponse.bodypart![index]);
+                          },
+                        ),
+                      ],
+                    ).visible(mDashboardResponse.bodypart!.isNotEmpty),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -93,3 +93,21 @@ Future<DietResponse> getSearchDietApi({String? mSearch = ""}) async {
 Future<DietModel> getSearchDietListApi() async {
   return DietModel.fromJson(await fakePagination(data: demoDiets.map((x) => x.toJson()).toList(), page: 1));
 }
+
+///Exercise
+Future<ExerciseResponse> getExerciseApi({
+  int? page,
+  String? mSearchValue = " ",
+  bool? isBodyPart = false,
+  int? id,
+  bool? isLevel = false,
+  bool? isEquipment = false,
+  var ids,
+  bool? isFilter = false,
+}) async {
+  return ExerciseResponse.fromJson(await fakePagination(data: demoExercises.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+
+Future<ExerciseResponse> getExerciseListApi({int? page}) async {
+  return ExerciseResponse.fromJson(await fakePagination(data: demoWorkouts.map((x) => x.toJson()).toList(), page: page ?? 1));
+}
