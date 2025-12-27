@@ -5,20 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:habit_tracker/extensions/constants.dart';
 import 'package:habit_tracker/utils/app_config.dart';
-
-//import 'package:nb_utils/nb_utils.dart';
-
 import '../extensions/shared_pref.dart';
 import '../main.dart';
 import 'LanguageDefaultJson.dart';
 import 'LocalLanguageResponse.dart';
 import 'ServerLanguageResponse.dart';
 
-const LanguageJsonDataRes = 'LanguageJsonDataRes'; // DO NOT CHANGE
-const CURRENT_LAN_VERSION = 'LanguageData'; // DO NOT CHANGE
-const LanguageVersion = '0'; // DO NOT CHANGE
-//const SELECTED_LANGUAGE_CODE = 'selected_language_code'; // DO NOT CHANGE
-const SELECTED_LANGUAGE_COUNTRY_CODE = 'selected_language_country_code'; // DO NOT CHANGE
+const LanguageJsonDataRes = 'LanguageJsonDataRes';
+const CURRENT_LAN_VERSION = 'LanguageData';
+const LanguageVersion = '0';
+const SELECTED_LANGUAGE_COUNTRY_CODE = 'selected_language_country_code';
 const IS_SELECTED_LANGUAGE_CHANGE = 'isSelectedLanguageChange';
 
 Locale defaultLanguageLocale = Locale(defaultLanguageCode, defaultCountryCode);
@@ -105,26 +101,18 @@ String getContentValueFromKey(int keywordId) {
 }
 
 initJsonFile() async {
-  print("init josn");
   final String jsonString = await rootBundle.loadString('assets/fitness_language.json');
   final list = json.decode(jsonString) as List;
-  print("list==========================${list}");
   List<LocalLanguageResponse> finalList = list.map((jsonElement) => LocalLanguageResponse.fromJson(jsonElement)).toList();
   defaultLanguageDataKeys.clear();
-  print("final list length finallist${finalList.length}");
-
   for (int index = 0; index < finalList.length; index++) {
     for (int i = 0; i < finalList[index].keywordData!.length; i++) {
-      // print(
-      //     "final list keywordData ${finalList[index].keywordData![i].keywordValue}");
       defaultLanguageDataKeys.add(
         ContentData(keywordId: finalList[index].keywordData![i].keywordId, keywordName: finalList[index].keywordData![i].keywordName, keywordValue: finalList[index].keywordData![i].keywordValue),
       );
     }
   }
 }
-
-// DO NOT CHANGE
 
 String getCountryCode() {
   String defaultCode = countryCode!;

@@ -1,6 +1,6 @@
 import 'ServerLanguageResponse.dart';
 
-String defaultLanguageCode = "en"; // Set Default language code
-String defaultCountryCode = "en-IN"; // Set Default Language code
-String defaultKeyNotFoundValue = "KEY_NOT_FOUND"; // Set your own message if key not found
+String defaultLanguageCode = "en";
+String defaultCountryCode = "en-IN";
+String defaultKeyNotFoundValue = "KEY_NOT_FOUND";
 List<ContentData> defaultLanguageDataKeys = [];
