@@ -70,8 +70,26 @@ Future<DashboardResponse> getDashboardApi() async {
   await demoDelay();
   return demoDashboard;
 }
-///[Diet Category]
+///[Diet]
 Future<CategoryDietResponse> getDietCategoryApi({int? page}) async {
   final categoryList = demoDietCategories.map((e) => e.toJson()).toList();
   return CategoryDietResponse.fromJson(await fakePagination(data: categoryList, page: page ?? 1));
+}
+Future<DietResponse> getDietApi(String? isFeatured, bool? isCategory, {int? page = 1, bool? isAssign = false, bool? isFav = false, int? categoryId}) async {
+  return DietResponse.fromJson(await fakePagination(data: demoDiets.map((e) => e.toJson()).toList(), page: page ?? 1));
+}
+Future<FitnessBaseResponse> setDietFavApi(Map req) async {
+  await demoDelay();
+  return FitnessBaseResponse.fromJson({"message": "Diet marked as favorite"});
+}
+Future<DietResponse> getDietFavApi() async {
+  return DietResponse.fromJson(await fakePagination(data: demoDiets.map((x) => x.toJson()).toList(), page: 1));
+}
+
+Future<DietResponse> getSearchDietApi({String? mSearch = ""}) async {
+  return DietResponse.fromJson(await fakePagination(data: demoDiets.map((x) => x.toJson()).toList(), page: 1));
+}
+
+Future<DietModel> getSearchDietListApi() async {
+  return DietModel.fromJson(await fakePagination(data: demoDiets.map((x) => x.toJson()).toList(), page: 1));
 }
