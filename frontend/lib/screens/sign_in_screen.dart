@@ -10,9 +10,6 @@ import '../../extensions/extension_util/int_extensions.dart';
 import '../../extensions/extension_util/widget_extensions.dart';
 import '../../extensions/loader_widget.dart';
 import '../../main.dart';
-import '../../screens/dashboard_screen.dart';
-import '../../screens/forgot_pwd_screen.dart';
-import '../../screens/sign_up_screen.dart';
 import '../../utils/app_images.dart';
 import '../extensions/app_button.dart';
 import '../extensions/app_text_field.dart';
@@ -22,7 +19,6 @@ import '../extensions/decorations.dart';
 import '../extensions/extension_util/string_extensions.dart';
 import '../extensions/shared_pref.dart';
 import '../extensions/text_styles.dart';
-import '../network/rest_api.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_common.dart';
 import '../utils/app_constants.dart';
@@ -70,33 +66,9 @@ class _SignInScreenState extends State<SignInScreen> {
     };
 
     if (mFormKey.currentState!.validate()) {
-      appStore.setLoading(true);
-      await logInApi(req).then((value) async {
-        updatePlayerId();
-        if (value.data!.status == "active") {
-          if (getBoolAsync(IS_REMEMBER)) {
-            userStore.setUserPassword(mPassCont.text.trim());
-          }
-          print("------------------81>>>${userStore.email}");
-          print("------------------82>>>${mEmailCont.text.trim()}");
-          if (userStore.email == mEmailCont.text.trim()) {
-            userStore.setIsSTEP('oldUser');
-          } else {
-            userStore.setIsSTEP('newUser');
-          }
+      // todo
+      // appStore.setLoading(true);
 
-          getUSerDetail(context, value.data!.id).then((value) {
-            DashboardScreen().launch(context, isNewTask: true);
-          }).catchError((e) {
-            print("error=>" + e.toString());
-          });
-        } else {
-          toast(languages.lblContactAdmin);
-        }
-      }).catchError((e) {
-        appStore.setLoading(false);
-        toast(e.toString());
-      });
       setState(() {});
     }
   }
@@ -106,11 +78,9 @@ class _SignInScreenState extends State<SignInScreen> {
       String localeName = Platform.localeName;
 
       if (localeName.contains('_')) {
-        print("---------114>>>${localeName.split('_').last}");
         setValue(COUNTRY_CODE, localeName.split('_').last);
         return localeName.split('_').last;
       }
-
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
       if (Platform.isAndroid) {
         AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -134,7 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarIconBrightness: Brightness.dark,
@@ -215,7 +185,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ],
                             ).expand(),
                             Text(languages.lblForgotPassword, style: secondaryTextStyle(color: primaryColor)).onTap(() {
-                              ForgotPwdScreen().launch(context);
+                              //TODO forgot password screen
                             }, hoverColor: Colors.transparent, splashColor: Colors.transparent, highlightColor: Colors.transparent),
                           ],
                         ),

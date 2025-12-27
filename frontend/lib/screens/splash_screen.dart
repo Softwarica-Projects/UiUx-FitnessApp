@@ -23,6 +23,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    //todo ask notificatin permission
   }
 
   init() async {
