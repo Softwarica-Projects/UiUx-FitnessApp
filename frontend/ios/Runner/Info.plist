@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true />
-		<key>CFBundleDevelopmentRegion</key>
-		<string>$(DEVELOPMENT_LANGUAGE)</string>
-		<key>CFBundleDisplayName</key>
-		<string>Fitness App </string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>Fitness App </string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>$(MARKETING_VERSION)</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-				</array>
-			</dict>
-		</array>
-		<key>CFBundleVersion</key>
-		<string>$(CURRENT_PROJECT_VERSION)</string>
-		<key>LSRequiresIPhoneOS</key>
-		<true />
-		<key>NSAppTransportSecurity</key>
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Fitness App </string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Fitness App </string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
 		<dict>
-			<key>NSAllowsArbitraryLoads</key>
-			<true />
-			<key>NSAllowsArbitraryLoadsInWebContent</key>
-			<true />
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
 		</dict>
-		<key>NSCameraUsageDescription</key>
-		<string>Fitness App app requires access to the Camera to upload your Profile photo.</string>
-		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>Fitness App uses your location to provide accurate parcel tracking and timely
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Fitness App app requires access to the Camera to upload your Profile photo.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Fitness App uses your location to provide accurate parcel tracking and timely
 			delivery updates. By accessing your address, we ensure that you receive real-time
 			information about your parcels' status and estimated delivery times.</string>
-		<key>NSLocationAlwaysUsageDescription</key>
-		<string>Fitness App uses your location to provide accurate parcel tracking and timely
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Fitness App uses your location to provide accurate parcel tracking and timely
 			delivery updates. By accessing your address, we ensure that you receive real-time
 			information about your parcels' status and estimated delivery times.</string>
-		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>Fitness App uses your location to provide accurate parcel tracking and timely
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Fitness App uses your location to provide accurate parcel tracking and timely
 			delivery updates. By accessing your address, we ensure that you receive real-time
 			information about your parcels' status and estimated delivery times.</string>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>The Fitness App app uses your device's microphone to enhance your fitness
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The Fitness App app uses your device's microphone to enhance your fitness
 			experience. We utilize voice commands for guided workouts, enabling you to interact with
 			the app hands-free. Your microphone is also used for recording workout notes and
 			feedback. We respect your privacy and do not store any audio without your consent.</string>
-		<key>NSMotionUsageDescription</key>
-		<string>Fitness App application tracks your steps</string>
-		<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>Fitness App requires access to the photo library to upload your Profile photo.</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Fitness App requires access to the photo library to upload your Profile photo.</string>
-		<key>NSSpeechRecognitionUsageDescription</key>
-		<string>We use speech recognition to provide voice-controlled workout instructions and track
+	<key>NSMotionUsageDescription</key>
+	<string>Fitness App application tracks your steps</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Fitness App requires access to the photo library to upload your Profile photo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Fitness App requires access to the photo library to upload your Profile photo.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We use speech recognition to provide voice-controlled workout instructions and track
 			your progress during workouts in the Fitness App app. Access to the microphone is
 			required to ensure accurate and convenient voice interactions with the app.</string>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true />
-		<key>UIBackgroundModes</key>
-		<array>
-			<string>remote-notification</string>
-		</array>
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIMainStoryboardFile</key>
-		<string>Main</string>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<true />
-		<key>io.flutter.embedded_views_preview</key>
-		<true />
-	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+</dict>
 </plist>
