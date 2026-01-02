@@ -20,6 +20,7 @@ import '../extensions/confirmation_dialog.dart';
 import '../extensions/decorations.dart';
 import '../extensions/text_styles.dart';
 import '../main.dart';
+import '../screens/faq_screen.dart';
 import '../screens/reminder_screen.dart';
 import '../service/auth_service.dart';
 import '../utils/app_colors.dart';

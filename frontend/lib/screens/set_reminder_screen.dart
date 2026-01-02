@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/utils/app_common.dart';
 import '../extensions/extension_util/string_extensions.dart';
 import '../extensions/system_utils.dart';
 import '../extensions/widgets.dart';
@@ -166,6 +167,7 @@ class SetReminderScreenState extends State<SetReminderScreen> {
                         minute: _dateTime.minute,
                       );
                     }
+                    toast("Reminder has been added successfully");
                     finish(context, true);
                     setState(() {});
                   }

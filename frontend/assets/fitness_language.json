@@ -128,6 +128,11 @@
         "keyword_id": 19,
         "keyword_name": "lblContactAdmin",
         "keyword_value": "Contact to administrator"
+      },  {
+        "screenId": "2",
+        "keyword_id": 250,
+        "keyword_name": "lblLoginSuccessfully",
+        "keyword_value": "Login successful!"
       }
     ]
   },
@@ -135,6 +140,12 @@
     "screenID": "3",
     "ScreenName": "SignUpStep1Component",
     "keyword_data": [
+      {
+        "screenId": "3",
+        "keyword_id": 249,
+        "keyword_name": "lblRegistrationSuccessfully",
+        "keyword_value": "Registration successful!"
+      },
       {
         "screenId": "3",
         "keyword_id": 20,
@@ -386,6 +397,30 @@
         "keyword_id": 55,
         "keyword_name": "lblEquipmentsExercise",
         "keyword_value": "Equipment-Based Exercises"
+      },
+      {
+        "screenId": "8",
+        "keyword_id": 251,
+        "keyword_name": "lblFaqHeader",
+        "keyword_value": "Find answers to common questions about using the app"
+      },
+      {
+        "screenId": "8",
+        "keyword_id": 252,
+        "keyword_name": "lblFaqTitle",
+        "keyword_value": "Frequently Asked Questions"
+      },
+      {
+        "screenId": "8",
+        "keyword_id": 253,
+        "keyword_name": "lblFaqFooter",
+        "keyword_value": "Still have questions? Feel free to explore the app and discover more features!"
+      },
+      {
+        "screenId": "8",
+        "keyword_id": 254,
+        "keyword_name": "lblFaq",
+        "keyword_value": "FAQ"
       },
       {
         "screenId": "8",

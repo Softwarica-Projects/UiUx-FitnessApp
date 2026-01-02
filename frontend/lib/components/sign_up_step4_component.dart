@@ -133,6 +133,7 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
       userStore.setLogin(true);
       userStore.setToken(value.data!.apiToken.validate());
       getUserDetail(context, value.data!.id).then((value) {
+        toast(languages.lblRegistrationSuccessfully);
         DashboardScreen().launch(context, isNewTask: true);
       }).catchError((e) {});
     }).catchError((e) {

@@ -167,8 +167,6 @@ const Color violet = const Color(0xFFEE82EE);
 const Color wheat = const Color(0xFFF5DEB3);
 const Color white = const Color(0xFFFFFFFF);
 const Color whiteSmoke = const Color(0xFFF5F5F5);
-// const Color yellow = const Color(0xFFFFFF00);
-// const Color yellowGreen = const Color(0xFF9ACD32);
 
 /// Returns MaterialColor from Color
 MaterialColor createMaterialColor(Color color) {

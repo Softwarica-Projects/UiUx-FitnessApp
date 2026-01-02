@@ -252,6 +252,11 @@ class BaseLanguage {
 
   String get lblExerciseDone => getContentValueFromKey(240);
 
+  String get lblFaqHeader => getContentValueFromKey(251);
+  String get lblFaqTitle => getContentValueFromKey(252);
+  String get lblFaqFooter => getContentValueFromKey(253);
+  String get lblFaq => getContentValueFromKey(254);
+
   String get lblMonth => getContentValueFromKey(72);
 
   String get lblDay => getContentValueFromKey(241);
@@ -324,4 +329,6 @@ class BaseLanguage {
   String get lblUpdateNow => getContentValueFromKey(246);
   String get lblUpdateAvailable => getContentValueFromKey(247);
   String get lblUpdateNote => getContentValueFromKey(248);
+  String get lblRegistrationSuccessfully => getContentValueFromKey(249);
+  String get lblLoginSuccessfully => getContentValueFromKey(250);
 }

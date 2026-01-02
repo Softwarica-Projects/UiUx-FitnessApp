@@ -54,15 +54,13 @@ class AppButton extends StatefulWidget {
   _AppButtonState createState() => _AppButtonState();
 }
 
-class _AppButtonState extends State<AppButton>
-    with SingleTickerProviderStateMixin {
+class _AppButtonState extends State<AppButton> with SingleTickerProviderStateMixin {
   double _scale = 1.0;
   AnimationController? _controller;
 
   @override
   void initState() {
-    if (widget.enableScaleAnimation
-        .validate(value: enableAppButtonScaleAnimationGlobal)) {
+    if (widget.enableScaleAnimation.validate(value: enableAppButtonScaleAnimationGlobal)) {
       _controller = AnimationController(
         vsync: this,
         duration: Duration(
@@ -89,8 +87,7 @@ class _AppButtonState extends State<AppButton>
       _scale = 1 - _controller!.value;
     }
 
-    if (widget.enableScaleAnimation
-        .validate(value: enableAppButtonScaleAnimationGlobal)) {
+    if (widget.enableScaleAnimation.validate(value: enableAppButtonScaleAnimationGlobal)) {
       return Listener(
         onPointerDown: (details) {
           _controller?.forward();
@@ -132,7 +129,7 @@ class _AppButtonState extends State<AppButton>
         elevation: widget.elevation ?? defaultAppButtonElevation,
         animationDuration: Duration(milliseconds: 300),
         height: widget.height,
-        disabledColor: widget.disabledColor,
+        disabledColor: widget.disabledColor ?? Colors.grey,
         focusColor: widget.focusColor,
         hoverColor: widget.hoverColor,
         splashColor: widget.splashColor,

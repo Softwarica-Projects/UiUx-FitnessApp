@@ -83,6 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
           }
 
           getUserDetail(context, value.data!.id).then((value) {
+            toast(languages.lblLoginSuccessfully);
             DashboardScreen().launch(context, isNewTask: true);
           }).catchError((e) {
             toast(e.toString());
@@ -222,6 +223,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         24.height,
                         AppButton(
+                          enabled: !appStore.isLoading,
+                          disabledColor: Colors.grey,
                           text: languages.lblLogin,
                           width: context.width(),
                           color: primaryColor,

@@ -1,3 +1,5 @@
+import 'package:habit_tracker/screens/faq_screen.dart';
+
 import '../components/local_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -67,6 +69,10 @@ class SettingScreenState extends State<SettingScreen> {
           appBar: appBarWidget(languages.lblSettings, context: context),
           body: Column(
             children: [
+              mOption(ic_help, languages.lblFaq, () {
+                FaqScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
+              }),
+              Divider(height: 0, color: grayColor),
               mOption(ic_change_password, languages.lblChangePassword, () {
                 ChangePwdScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
               }),
