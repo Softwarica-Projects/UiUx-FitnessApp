@@ -90,30 +90,30 @@ class _FaqScreenState extends State<FaqScreen> {
                   return ExpansionPanel(
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return InkWell(
-                        onTap: () {
-                          setState(() {
-                            item.isExpanded = !item.isExpanded;
-                          });
-                        },
-                        child: ListTile(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          leading: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Icon(
-                            Icons.help_outline,
-                            color: primaryColor,
-                            size: 24,
-                          ),
-                        ),
-                        title: Text(
-                          item.question,
-                          style: boldTextStyle(size: 16),
-                        ),
-                      );
+                          onTap: () {
+                            setState(() {
+                              item.isExpanded = !item.isExpanded;
+                            });
+                          },
+                          child: ListTile(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            leading: Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: primaryColor.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(
+                                Icons.help_outline,
+                                color: primaryColor,
+                                size: 24,
+                              ),
+                            ),
+                            title: Text(
+                              item.question,
+                              style: boldTextStyle(size: 16),
+                            ),
+                          ));
                     },
                     body: Container(
                       padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
