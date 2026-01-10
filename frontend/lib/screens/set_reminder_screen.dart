@@ -15,7 +15,7 @@ import '../main.dart';
 import '../models/reminder_model.dart';
 import '../utils/app_colors.dart';
 import '../components/notification_utils.dart';
-import '../components/local_notification_service.dart';
+import '../service/local_notification_service.dart';
 import '../extensions/app_button.dart';
 import '../extensions/app_text_field.dart';
 import '../extensions/constants.dart';

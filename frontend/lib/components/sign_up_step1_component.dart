@@ -31,7 +31,7 @@ class SignUpStep1Component extends StatefulWidget {
 class _SignUpStep1ComponentState extends State<SignUpStep1Component> {
   GlobalKey<FormState> mFormKey = GlobalKey<FormState>();
 
-  String? dialCode;
+  String dialCode = "+977";
   TextEditingController mFNameCont = TextEditingController();
   TextEditingController mLNameCont = TextEditingController();
   TextEditingController mEmailCont = TextEditingController();
@@ -149,7 +149,7 @@ class _SignUpStep1ComponentState extends State<SignUpStep1Component> {
                             color: Colors.black,
                           ),
                           onChanged: (c) {
-                            dialCode = c.dialCode;
+                            dialCode = c.dialCode!;
                             setValue(COUNTRY_CODE, c.code);
                           },
                         ),
@@ -211,7 +211,7 @@ class _SignUpStep1ComponentState extends State<SignUpStep1Component> {
                   userStore.setFirstName(mFNameCont.text);
                   userStore.setLastName(mLNameCont.text);
                   if (getBoolAsync(IS_OTP) != true) {
-                    userStore.setPhoneNo("${dialCode ?? countryDail}${mMobileNumberCont.text}");
+                    userStore.setPhoneNo("${dialCode}${mMobileNumberCont.text}");
                     //  userStore.setPhoneNo(mMobileNumberCont.text);
                     userStore.setUserPassword(mPassCont.text);
                   }

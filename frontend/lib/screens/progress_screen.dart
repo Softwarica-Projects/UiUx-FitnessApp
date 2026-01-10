@@ -95,124 +95,120 @@ class ProgressScreenState extends State<ProgressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      return Scaffold(
-        appBar: appBarWidget(languages.lblReport, showBack: false, color: Colors.white, context: context, titleSpacing: 16),
-        body: Observer(builder: (context) {
-          return SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      appBar: appBarWidget(languages.lblReport, showBack: false, color: Colors.white, context: context, titleSpacing: 16),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    StepCountComponent().expand(),
-                    16.width,
-                    BMIComponent().expand().visible(userStore.weightUnit.isNotEmpty && userStore.heightUnit.isNotEmpty),
-                  ],
-                ).paddingSymmetric(horizontal: 16),
-                16.height,
-                IdealWeightComponent().expand().visible(userStore.gender.isNotEmpty && userStore.heightUnit.isNotEmpty).paddingSymmetric(horizontal: 16),
-                16.height,
-                if (isWeight == true)
-                  FutureBuilder(
-                    future: getProgressApi(METRICS_WEIGHT),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 16),
-                          decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              mHeading(languages.lblWeight),
-                              SizedBox(
-                                child: SingleChildScrollView(
-                                  primary: true,
-                                  scrollDirection: Axis.horizontal,
-                                  child: HorizontalBarChart(snapshot.data?.data).withSize(width: context.width(), height: 250),
-                                ).paddingSymmetric(horizontal: 8),
-                              )
-                            ],
-                          ).onTap(() async {
-                            bool? res = await ProgressDetailScreen(mType: METRICS_WEIGHT, mUnit: METRICS_WEIGHT_UNIT, mTitle: languages.lblWeight).launch(context);
-                            if (res == true) {
-                              setState(() {});
-                            }
-                          }),
-                        );
-                      }
-                      return snapWidgetHelper(snapshot, loadingWidget: SizedBox());
-                    },
-                  ).visible(userStore.weight.isNotEmpty && userStore.weightUnit.isNotEmpty),
-                if (isHeartRate == true)
-                  FutureBuilder(
-                    future: getProgressApi(METRICS_HEART_RATE),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              mHeading(languages.lblHeartRate),
-                              SingleChildScrollView(
-                                primary: true,
-                                scrollDirection: Axis.horizontal,
-                                child: HorizontalBarChart(snapshot.data!.data).withSize(width: context.width(), height: 250),
-                              ).paddingSymmetric(horizontal: 8)
-                            ],
-                          ).onTap(() async {
-                            bool? res = await ProgressDetailScreen(mType: METRICS_HEART_RATE, mUnit: METRICS_HEART_UNIT, mTitle: languages.lblHeartRate).launch(context);
-                            if (res == true) {
-                              setState(() {});
-                            }
-                          }),
-                        );
-                      }
-                      return snapWidgetHelper(snapshot, loadingWidget: SizedBox());
-                    },
-                  ),
-                if (isPush == true)
-                  FutureBuilder(
-                    future: getProgressApi(PUSH_UP_MIN),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 16),
-                          decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              mHeading(languages.lblPushUp),
-                              SingleChildScrollView(
-                                primary: true,
-                                scrollDirection: Axis.horizontal,
-                                child: HorizontalBarChart(snapshot.data!.data).withSize(width: context.width(), height: 250),
-                              ).paddingSymmetric(horizontal: 8)
-                            ],
-                          ).onTap(() async {
-                            bool? res = await ProgressDetailScreen(mType: PUSH_UP_MIN, mUnit: PUSH_UP_MIN_UNIT, mTitle: languages.lblPushUp).launch(context);
-                            if (res == true) {
-                              setState(() {});
-                            }
-                          }),
-                        );
-                      }
-                      return snapWidgetHelper(snapshot);
-                    },
-                  ),
-                16.height,
+                StepCountComponent().expand(),
+                16.width,
+                BMIComponent().expand().visible(userStore.weightUnit.isNotEmpty && userStore.heightUnit.isNotEmpty),
               ],
-            ),
-          );
-        }),
-      );
-    });
+            ).paddingSymmetric(horizontal: 16),
+            16.height,
+            IdealWeightComponent().visible(userStore.gender.isNotEmpty && userStore.heightUnit.isNotEmpty).paddingSymmetric(horizontal: 16),
+            16.height,
+            if (isWeight == true)
+              FutureBuilder(
+                future: getProgressApi(METRICS_WEIGHT),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          mHeading(languages.lblWeight),
+                          SizedBox(
+                            child: SingleChildScrollView(
+                              primary: true,
+                              scrollDirection: Axis.horizontal,
+                              child: HorizontalBarChart(snapshot.data?.data).withSize(width: context.width(), height: 250),
+                            ).paddingSymmetric(horizontal: 8),
+                          )
+                        ],
+                      ).onTap(() async {
+                        bool? res = await ProgressDetailScreen(mType: METRICS_WEIGHT, mUnit: METRICS_WEIGHT_UNIT, mTitle: languages.lblWeight).launch(context);
+                        if (res == true) {
+                          setState(() {});
+                        }
+                      }),
+                    );
+                  }
+                  return snapWidgetHelper(snapshot, loadingWidget: SizedBox());
+                },
+              ).visible(userStore.weight.isNotEmpty && userStore.weightUnit.isNotEmpty),
+            if (isHeartRate == true)
+              FutureBuilder(
+                future: getProgressApi(METRICS_HEART_RATE),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          mHeading(languages.lblHeartRate),
+                          SingleChildScrollView(
+                            primary: true,
+                            scrollDirection: Axis.horizontal,
+                            child: HorizontalBarChart(snapshot.data!.data).withSize(width: context.width(), height: 250),
+                          ).paddingSymmetric(horizontal: 8)
+                        ],
+                      ).onTap(() async {
+                        bool? res = await ProgressDetailScreen(mType: METRICS_HEART_RATE, mUnit: METRICS_HEART_UNIT, mTitle: languages.lblHeartRate).launch(context);
+                        if (res == true) {
+                          setState(() {});
+                        }
+                      }),
+                    );
+                  }
+                  return snapWidgetHelper(snapshot, loadingWidget: SizedBox());
+                },
+              ),
+            if (isPush == true)
+              FutureBuilder(
+                future: getProgressApi(PUSH_UP_MIN),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          mHeading(languages.lblPushUp),
+                          SingleChildScrollView(
+                            primary: true,
+                            scrollDirection: Axis.horizontal,
+                            child: HorizontalBarChart(snapshot.data!.data).withSize(width: context.width(), height: 250),
+                          ).paddingSymmetric(horizontal: 8)
+                        ],
+                      ).onTap(() async {
+                        bool? res = await ProgressDetailScreen(mType: PUSH_UP_MIN, mUnit: PUSH_UP_MIN_UNIT, mTitle: languages.lblPushUp).launch(context);
+                        if (res == true) {
+                          setState(() {});
+                        }
+                      }),
+                    );
+                  }
+                  return snapWidgetHelper(snapshot);
+                },
+              ),
+            16.height,
+          ],
+        ),
+      ),
+    );
   }
 }

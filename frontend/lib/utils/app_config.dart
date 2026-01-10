@@ -4,7 +4,7 @@ import '../main.dart';
 
 const APP_NAME = "Fitness App";
 int initialSteps = 0;
-const mBackendURL = "my-backend-url.com";
+const mBackendURL = "http://192.168.10.250:8000";
 const mBaseUrl = '$mBackendURL/api/';
 
 String WALK1_TITLE = languages.lblWalkTitle1;

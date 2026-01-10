@@ -29,18 +29,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
   int mCurrentIndex = 0;
   int mCounter = 0;
 
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  final tab = [HomeScreen(), DietScreen(), ProgressScreen(), ScheduleScreen(), ProfileScreen()];
-
-  List<BottomBarItemModel> bottomItemList = [
-    BottomBarItemModel(iconData: ic_home_outline, selectedIconData: ic_home_fill, labelText: languages.lblHome),
-    BottomBarItemModel(iconData: ic_diet_outline, selectedIconData: ic_diet_fill, labelText: languages.lblDiet),
-    BottomBarItemModel(iconData: ic_report_outline, selectedIconData: ic_report_fill, labelText: languages.lblReport),
-    BottomBarItemModel(iconData: ic_schedule, selectedIconData: ic_fill_schedule, labelText: languages.lblSchedule),
-    BottomBarItemModel(iconData: ic_user, selectedIconData: ic_user_fill_icon, labelText: languages.lblProfile),
-  ];
+  final tab = [HomeScreen(), DietScreen(), ProgressScreen(), ProfileScreen()];
 
   @override
   void initState() {
@@ -49,8 +38,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
     LiveStream().on("LANGUAGE", (s) {
       setState(() {});
     });
-    _controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
   }
 
   init() async {
@@ -75,7 +62,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -127,12 +113,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
             icon: Image.asset(ic_report_outline, color: Colors.grey, height: 24),
             activeIcon: Image.asset(ic_report_fill, color: primaryColor, height: 24),
             label: languages.lblReport,
-          ),
-          BottomNavigationBarItem(
-            tooltip: languages.lblSchedule,
-            icon: Image.asset(ic_schedule, color: Colors.grey, height: 22),
-            activeIcon: Image.asset(ic_fill_schedule, color: primaryColor, height: 24),
-            label: languages.lblSchedule,
           ),
           BottomNavigationBarItem(
             tooltip: languages.lblProfile,

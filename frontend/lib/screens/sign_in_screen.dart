@@ -7,6 +7,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:habit_tracker/network/rest_api.dart';
 import 'package:habit_tracker/screens/dashboard_screen.dart';
 import 'package:habit_tracker/screens/forgot_pwd_screen.dart';
+import 'package:habit_tracker/screens/sign_up_screen.dart';
+import 'package:habit_tracker/service/remote_notification_service.dart';
 
 import '../../extensions/extension_util/context_extensions.dart';
 import '../../extensions/extension_util/int_extensions.dart';
@@ -81,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
           } else {
             userStore.setIsSTEP('newUser');
           }
-
+          RemoteNotificationService.subscribeToTopic('${value.data!.id}');
           getUserDetail(context, value.data!.id).then((value) {
             toast(languages.lblLoginSuccessfully);
             DashboardScreen().launch(context, isNewTask: true);
@@ -237,7 +239,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(languages.lblNewUser, style: primaryTextStyle()),
-                            GestureDetector(child: Text(languages.lblRegisterNow, style: primaryTextStyle(color: primaryColor)).paddingLeft(4), onTap: () {})
+                            GestureDetector(
+                                child: Text(languages.lblRegisterNow, style: primaryTextStyle(color: primaryColor)).paddingLeft(4),
+                                onTap: () {
+                                  SignUpScreen().launch(context);
+                                })
                           ],
                         ),
                         24.height,

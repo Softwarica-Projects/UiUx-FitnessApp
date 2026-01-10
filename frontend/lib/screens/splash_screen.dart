@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:habit_tracker/extensions/constants.dart';
-import 'package:habit_tracker/languageConfiguration/LanguageDataConstant.dart';
-import 'package:habit_tracker/languageConfiguration/ServerLanguageResponse.dart';
-import 'package:habit_tracker/network/rest_api.dart';
+import 'package:habit_tracker/service/local_notification_service.dart';
+import 'package:habit_tracker/service/remote_notification_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../extensions/extension_util/duration_extensions.dart';
@@ -21,6 +17,8 @@ import 'walk_through_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static String tag = '/SplashScreen';
+
+  const SplashScreen({super.key});
 
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -54,45 +52,8 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   void _checkNotifyPermission() async {
-    String versionNo = getStringAsync(CURRENT_LAN_VERSION, defaultValue: LanguageVersion);
-    await getLanguageList(versionNo).then((value) {
-      appStore.setLoading(false);
-      if (value.status == true) {
-        setValue(CURRENT_LAN_VERSION, value.currentVersionNo.toString());
-        if (value.data!.length > 0) {
-          defaultServerLanguageData = value.data;
-          performLanguageOperation(defaultServerLanguageData);
-          setValue(LanguageJsonDataRes, value.toJson());
-          bool isSetLanguage = sharedPreferences.getBool(IS_SELECTED_LANGUAGE_CHANGE) ?? false;
-          if (!isSetLanguage) {
-            for (int i = 0; i < value.data!.length; i++) {
-              if (value.data![i].isDefaultLanguage == 1) {
-                setValue(SELECTED_LANGUAGE_CODE, value.data![i].languageCode);
-                setValue(SELECTED_LANGUAGE_COUNTRY_CODE, value.data![i].countryCode);
-                break;
-              }
-            }
-          }
-        } else {
-          defaultServerLanguageData = [];
-          selectedServerLanguageData = null;
-          setValue(LanguageJsonDataRes, "");
-        }
-      } else {
-        String getJsonData = getStringAsync(LanguageJsonDataRes) ?? '';
-
-        if (getJsonData.isNotEmpty) {
-          ServerLanguageResponse languageSettings = ServerLanguageResponse.fromJson(json.decode(getJsonData.trim()));
-          if (languageSettings.data!.length > 0) {
-            defaultServerLanguageData = languageSettings.data;
-            performLanguageOperation(defaultServerLanguageData);
-          }
-        }
-      }
-    }).catchError((error) {
-      appStore.setLoading(false);
-      // log(error);
-    });
+    await RemoteNotificationService.init();
+    await LocalNotificationService().init();
     if (await Permission.notification.isGranted) {
       init();
     } else {
@@ -111,7 +72,6 @@ class SplashScreenState extends State<SplashScreen> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        // backgroundColor: appStore.isDarkMode ? context.scaffoldBackgroundColor : whiteColor,
         body: Image.asset(
           ic_splash,
           width: double.maxFinite,

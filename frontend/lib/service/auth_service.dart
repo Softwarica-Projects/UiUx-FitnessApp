@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/service/remote_notification_service.dart';
 
 import '../extensions/shared_pref.dart';
 import '../main.dart';
@@ -24,6 +25,7 @@ Future<void> logout(BuildContext context, {Function? onLogout}) async {
     await removeKey(PASSWORD);
     await removeKey(EMAIL);
   }
+  await RemoteNotificationService.clearToken();
   userStore.setLogin(false);
   onLogout?.call();
 }

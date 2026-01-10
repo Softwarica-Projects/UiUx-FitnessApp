@@ -1,6 +1,6 @@
 import 'package:habit_tracker/screens/faq_screen.dart';
 
-import '../components/local_notification_service.dart';
+import '../service/local_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:habit_tracker/extensions/LiveStream.dart';

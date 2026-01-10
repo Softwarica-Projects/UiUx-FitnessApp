@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:habit_tracker/screens/home_screen.dart';
+import 'package:habit_tracker/screens/schedule_Screen.dart';
 import 'package:habit_tracker/screens/workout_history_screen.dart';
 
 import '../../extensions/constants.dart';
@@ -187,6 +188,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Divider(height: 0, color: grayColor),
                             mOption(ic_assigned, languages.lblPlan, () {
                               AssignScreen().launch(context);
+                            }),
+                            Divider(height: 0, color: grayColor),
+                            mOption(ic_schedule, languages.lblSchedule, () {
+                              ScheduleScreen().launch(context);
                             }),
                             Divider(height: 0, color: grayColor),
                             mOption(ic_setting, languages.lblSettings, () {

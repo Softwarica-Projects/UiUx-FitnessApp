@@ -79,7 +79,7 @@ class IdealWeightComponentState extends State<IdealWeightComponent> with TickerP
       margin: EdgeInsets.only(top: 8),
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       decoration: boxDecorationRoundedWithShadow(16, backgroundColor: context.cardColor),
-      child: Observer(
+      child: Builder(
         builder: (context) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,

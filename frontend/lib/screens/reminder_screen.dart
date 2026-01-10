@@ -13,7 +13,7 @@ import '../extensions/text_styles.dart';
 import '../extensions/widgets.dart';
 import '../main.dart';
 import '../utils/app_colors.dart';
-import '../components/local_notification_service.dart';
+import '../service/local_notification_service.dart';
 
 class ReminderScreen extends StatefulWidget {
   const ReminderScreen({super.key});

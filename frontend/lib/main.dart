@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'components/local_notification_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'service/local_notification_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/languageConfiguration/AppLocalizations.dart';
@@ -43,11 +45,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
   setDefaultLocate();
+  await Firebase.initializeApp();
   languages = (await AppLocalizations().load(Locale("EN")));
   initJsonFile();
   setLogInValue();
   defaultAppButtonShapeBorder = RoundedRectangleBorder(borderRadius: radius(defaultAppButtonRadius));
-  await LocalNotificationService().init();
   if (!getStringAsync(PROGRESS_SETTINGS_DETAIL).isEmptyOrNull) {
     userStore.addAllProgressSettingsListItem(jsonDecode(getStringAsync(PROGRESS_SETTINGS_DETAIL)).map<ProgressSettingModel>((e) => ProgressSettingModel.fromJson(e)).toList());
   } else {

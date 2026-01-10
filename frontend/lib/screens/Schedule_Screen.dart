@@ -92,11 +92,8 @@ class ScheduleScreenState extends State<ScheduleScreen> with AutomaticKeepAliveC
     super.build(context);
     return Scaffold(
       appBar: appBarWidget(
-        // languages.scheduledWorkoutList,
         languages.lblSchedule,
         context: context,
-        showBack: false,
-        titleSpacing: 16,
       ),
       body: Stack(
         children: [

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter/foundation.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -16,14 +15,13 @@ class LocalNotificationService {
     tz.initializeTimeZones();
 
     const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-    final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
+    const DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
-      onDidReceiveLocalNotification: (int id, String? title, String? body, String? payload) async {},
     );
 
-    final InitializationSettings initializationSettings = InitializationSettings(
+    const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
     );
@@ -44,7 +42,7 @@ class LocalNotificationService {
   }
 
   Future<void> requestAndroidPermission() async {
-    await _flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestPermission();
+    await _flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
   }
 
   Future<void> showNotification({required int id, required String title, required String body}) async {
@@ -76,7 +74,7 @@ class LocalNotificationService {
         android: AndroidNotificationDetails('scheduled_channel', 'Scheduled Notifications', channelDescription: 'Scheduled Notification Channel', importance: Importance.max, priority: Priority.high),
         iOS: DarwinNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true),
       ),
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
     );
   }
