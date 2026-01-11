@@ -207,6 +207,7 @@ class _SignUpStep4ComponentState extends State<SignUpStep4Component> with Ticker
                     if (mFormKey.currentState!.validate()) {
                       userStore.setIsSTEP('newUser');
                       userStore.setWeight(mWeightCont.text.validate().split(' ')[0]);
+                      userStore.setHeight(mHeightCont.text.validate().split(' ')[0]);
                       saveData();
                       setState(() {});
                     }

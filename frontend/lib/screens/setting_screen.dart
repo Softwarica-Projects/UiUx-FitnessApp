@@ -1,4 +1,6 @@
 import 'package:habit_tracker/screens/faq_screen.dart';
+import 'package:habit_tracker/screens/privacy_policy_screen.dart';
+import 'package:habit_tracker/screens/terms_condition_screen.dart';
 
 import '../service/local_notification_service.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +77,14 @@ class SettingScreenState extends State<SettingScreen> {
               Divider(height: 0, color: grayColor),
               mOption(ic_change_password, languages.lblChangePassword, () {
                 ChangePwdScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
+              }),
+              Divider(height: 0),
+              mOption(ic_help, languages.lblPrivacyPolicy, () {
+                PrivacyPolicyScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
+              }),
+              Divider(height: 0),
+              mOption(ic_help, languages.lblTermsOfServices, () {
+                TermsConditionScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
               }),
               Divider(height: 0),
               mOption(ic_delete, languages.lblDeleteAccount, () async {

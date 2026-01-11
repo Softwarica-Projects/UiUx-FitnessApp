@@ -1,5 +1,3 @@
-
-
 double calculateIdealWeight(String gender, double heightFeet, double heightInches) {
   double totalHeightInches = (heightFeet * 12) + heightInches;
 
@@ -15,5 +13,3 @@ double calculateIdealWeight(String gender, double heightFeet, double heightInche
 
   return double.parse(idealWeight.toStringAsFixed(2));
 }
-
-
