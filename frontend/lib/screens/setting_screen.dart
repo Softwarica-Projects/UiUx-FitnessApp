@@ -83,7 +83,7 @@ class SettingScreenState extends State<SettingScreen> {
                 PrivacyPolicyScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
               }),
               Divider(height: 0),
-              mOption(ic_help, languages.lblTermsOfServices, () {
+              mOption(ic_terms, languages.lblTermsOfServices, () {
                 TermsConditionScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
               }),
               Divider(height: 0),

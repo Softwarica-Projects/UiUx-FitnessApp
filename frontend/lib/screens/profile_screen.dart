@@ -186,10 +186,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ReminderScreen().launch(context);
                             }),
                             Divider(height: 0, color: grayColor),
-                            mOption(ic_assigned, languages.lblPlan, () {
-                              AssignScreen().launch(context);
-                            }),
-                            Divider(height: 0, color: grayColor),
                             mOption(ic_schedule, languages.lblSchedule, () {
                               ScheduleScreen().launch(context);
                             }),
