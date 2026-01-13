@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\DataTables\CategoryDietDataTable;
+use App\Helpers\AuthHelper;
+use App\Models\CategoryDiet;
+
+use App\Http\Requests\CategoryDietRequest;
+
+
+class CategoryDietController extends Controller
+{
+    public function index(CategoryDietDataTable $dataTable)
+    {
+        $pageTitle = __('message.list_form_title',['form' => __('message.categorydiet')] );
+        $auth_user = AuthHelper::authSession();
+
+        $assets = ['data-table'];
+
+        $headerAction = '<a href="'.route('categorydiet.create').'" class="btn btn-sm btn-primary" role="button">'.__('message.add_form_title', [ 'form' => __('message.categorydiet')]).'</a>';
+
+        return $dataTable->render('global.datatable', compact('pageTitle', 'auth_user', 'assets', 'headerAction'));
+    }
+
+    public function create()
+    {
+        $pageTitle = __('message.add_form_title',[ 'form' => __('message.categorydiet')]);
+
+        return view('categorydiet.form', compact('pageTitle'));
+    }
+    public function store(CategoryDietRequest $request)
+    {
+        $categorydiet = CategoryDiet::create($request->all());
+
+        storeMediaFile($categorydiet,$request->categorydiet_image, 'categorydiet_image'); 
+
+        return redirect()->route('categorydiet.index')->withSuccess(__('message.save_form', ['form' => __('message.categorydiet')]));
+    }
+
+    public function show($id)
+    {
+        $data = CategoryDiet::findOrFail($id);
+    }
+
+    public function edit($id)
+    {
+        $data = CategoryDiet::findOrFail($id);
+        $pageTitle = __('message.update_form_title',[ 'form' => __('message.categorydiet') ]);
+
+        return view('categorydiet.form', compact('data','id','pageTitle'));
+    }
+
+    public function update(CategoryDietRequest $request, $id)
+    {
+        $categorydiet = CategoryDiet::findOrFail($id);
+
+        // categorydiet data...
+        $categorydiet->fill($request->all())->update();
+
+        // Save categorydiet image...
+        if (isset($request->categorydiet_image) && $request->categorydiet_image != null) {
+            $categorydiet->clearMediaCollection('categorydiet_image');
+            $categorydiet->addMediaFromRequest('categorydiet_image')->toMediaCollection('categorydiet_image');
+        }
+
+        if(auth()->check()){
+            return redirect()->route('categorydiet.index')->withSuccess(__('message.update_form',['form' => __('message.categorydiet')]));
+        }
+        return redirect()->back()->withSuccess(__('message.update_form',['form' => __('message.categorydiet') ] ));
+
+    }
+
+    public function destroy($id)
+    {
+        $categorydiet = CategoryDiet::findOrFail($id);
+        $status = 'errors';
+        $message = __('message.not_found_entry', ['name' => __('message.categorydiet')]);
+
+        if($categorydiet != '') {
+            $categorydiet->delete();
+            $status = 'success';
+            $message = __('message.delete_form', ['form' => __('message.categorydiet')]);
+        }
+
+        if(request()->ajax()) {
+            return response()->json(['status' => true, 'message' => $message ]);
+        }
+
+        return redirect()->back()->with($status,$message);
+    }
+}
