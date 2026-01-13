@@ -184,10 +184,6 @@ Widget mOption(String img, String title, Function? onCall) {
   );
 }
 
-Future<void> getSettingData() async {
-  await getAppSettingApi();
-}
-
 Future<void> getUserDetail(BuildContext context, int? id) async {
   await getUserDataApi(id: id.validate()).then((value) async {
     userStore.setFirstName(value.data!.firstName.validate());

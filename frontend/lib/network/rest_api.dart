@@ -241,14 +241,6 @@ Future<GraphResponse> getProgressApi(String? type, {int? page = 1, String? isFil
   }
 }
 
-Future<AppSettingResponse> getAppSettingApi() async {
-  return AppSettingResponse.fromJson(await handleResponse(await buildHttpResponse('get-appsetting', method: HttpMethod.GET)));
-}
-
-Future<GetSettingResponse> getSettingApi() async {
-  return GetSettingResponse.fromJson(await handleResponse(await buildHttpResponse('get-setting', method: HttpMethod.GET)));
-}
-
 Future<DietResponse> getSearchDietApi({String? mSearch = ""}) async {
   return DietResponse.fromJson(await (handleResponse(await buildHttpResponse("diet-list?title=$mSearch", method: HttpMethod.GET))));
 }

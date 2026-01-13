@@ -41,17 +41,9 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
   }
 
   init() async {
-    await getSettingList();
     Permissions.activityPermissionsGranted();
-
     LiveStream().on(CHANGE_LANGUAGE, (p0) {
       setState(() {});
-    });
-  }
-
-  Future<void> getSettingList() async {
-    await getSettingApi().then((value) {
-      getSettingData().whenComplete(() {});
     });
   }
 

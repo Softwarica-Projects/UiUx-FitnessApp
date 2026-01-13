@@ -26,7 +26,7 @@ class _ChewieScreenState extends State<ChewieScreen> with WidgetsBindingObserver
   late VideoPlayerController _videoPlayerController1;
   ChewieController? _chewieController;
   int? bufferDelay;
-
+  bool initialized = false;
   @override
   void initState() {
     super.initState();
@@ -35,9 +35,11 @@ class _ChewieScreenState extends State<ChewieScreen> with WidgetsBindingObserver
 
   @override
   void dispose() {
-    _videoPlayerController1.dispose();
-    _chewieController?.videoPlayerController.pause();
-    _chewieController?.dispose();
+    if (initialized) {
+      _videoPlayerController1.dispose();
+      _chewieController?.videoPlayerController.pause();
+      _chewieController?.dispose();
+    }
     super.dispose();
   }
 
@@ -47,6 +49,7 @@ class _ChewieScreenState extends State<ChewieScreen> with WidgetsBindingObserver
     }
     _videoPlayerController1 = VideoPlayerController.networkUrl(Uri.parse(widget.url ?? ''), videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true));
     await Future.wait([_videoPlayerController1.initialize()]);
+    initialized = true;
     _createChewieController();
 
     setState(() {});
