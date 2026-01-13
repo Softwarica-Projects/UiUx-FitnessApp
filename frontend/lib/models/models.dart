@@ -194,7 +194,7 @@ class Workout {
     _set++;
     _rep = 1;
     _step = WorkoutState.exercising;
-    _timeLeft = Duration(seconds: _config.exerciseTime![_rep - 1].toInt());
+    _timeLeft = Duration(seconds: _config.exerciseTime![_rep - 1].toInt(defaultValue: 8));
     // _playSound(_settings.startSet);
   }
 
